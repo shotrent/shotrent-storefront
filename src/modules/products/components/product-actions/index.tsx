@@ -4,16 +4,26 @@ import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { Product } from "types/medusa"
+import { DateRange, DateRangePicker } from 'react-date-range';
+import Input from "@modules/common/components/input"
 
 type ProductActionsProps = {
   product: Product
 }
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
-  const { updateOptions, addToCart, options, inStock, variant } =
-    useProductActions()
+ 
+  const { updateOptions, addToCart, options, inStock, variant, selectionRange, selectedDates, isDateRangeValid, updateDateRange } =
+    useProductActions();
+
+  const handleSelect = (ranges:any) => {
+    updateDateRange(ranges.selection);   
+    if(ranges.selection.endDate > ranges.selection.startDate)
+    setIsDateRangePickerVisible(false)
+  }
+  const [isDateRangePickerVisible, setIsDateRangePickerVisible] = useState(false);
 
   const price = useProductPrice({ id: product.id, variantId: variant?.id })
 
@@ -82,7 +92,29 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         )}
       </div>
 
-      <Button onClick={addToCart}>
+      <Input
+              label="Select Dates"
+              name="daterange"
+              autoComplete="off"
+              defaultValue={selectedDates}
+              onClick={()=> { setIsDateRangePickerVisible(!isDateRangePickerVisible)}}
+            />
+
+      {isDateRangePickerVisible? (<div className="popup-container">
+        <div className="popup-inner-container">
+          {/* <div className="close" onClick={()=> setIsDateRangePickerVisible(!isDateRangePickerVisible)}>X</div> */}
+          <DateRange
+            ranges={[selectionRange]}
+            onChange={handleSelect}
+            rangeColors={['black']}
+          />
+
+          <Button onClick={()=> setIsDateRangePickerVisible(!isDateRangePickerVisible)}>Close</Button>
+        </div>
+      </div>):""}
+      
+
+      <Button onClick={addToCart} disabled={!isDateRangeValid}>
         {!inStock ? "Out of stock" : "Add to cart"}
       </Button>
     </div>

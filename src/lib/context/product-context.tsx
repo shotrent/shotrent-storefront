@@ -1,5 +1,7 @@
 import { canBuy } from "@lib/util/can-buy"
 import { findCheapestPrice } from "@lib/util/prices"
+import { isValid } from "date-fns"
+import format from "date-fns/format"
 import isEqual from "lodash/isEqual"
 import { formatVariantPrice, useCart } from "medusa-react"
 import React, {
@@ -19,11 +21,23 @@ interface ProductContext {
   inStock: boolean
   variant?: Variant
   maxQuantityMet: boolean
+  selectionRange:{
+    startDate: Date | null,
+    endDate: Date | null,
+    key: string,
+  }
   options: Record<string, string>
+  selectedDates:string
+  isDateRangeValid:boolean
   updateOptions: (options: Record<string, string>) => void
   increaseQuantity: () => void
   decreaseQuantity: () => void
   addToCart: () => void
+  updateDateRange: (value:{
+    startDate: Date,
+    endDate: Date,
+    key: string,
+  })=> void
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -41,11 +55,23 @@ export const ProductProvider = ({
   const [options, setOptions] = useState<Record<string, string>>({})
   const [maxQuantityMet, setMaxQuantityMet] = useState<boolean>(false)
   const [inStock, setInStock] = useState<boolean>(true)
-
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: 'selection',
+  });
   const { addItem } = useStore()
   const { cart } = useCart()
   const { variants } = product
 
+  const updateDateRange =  (data: React.SetStateAction<{ startDate: Date; endDate: Date; key: string }>) => setSelectionRange(data);
+  const isDateRangeValid = useMemo(()=> isValid(selectionRange.startDate) && isValid(selectionRange.endDate), [selectionRange]);
+  const selectedDates = useMemo(()=>{
+    if(!isDateRangeValid) return '';
+    const startDate:Date = selectionRange.startDate as any;
+    const endDate:Date = selectionRange.endDate as any;
+    return `${format(startDate, 'MMM dd, yyyy')} - ${format(endDate, 'MMM dd, yyyy')}`;
+  },[selectionRange])
   useEffect(() => {
     // initialize the option state
     const optionObj: Record<string, string> = {}
@@ -123,6 +149,10 @@ export const ProductProvider = ({
       addItem({
         variantId: variant.id,
         quantity,
+        metadata: {
+          startDate: selectionRange.startDate,
+          endDate: selectionRange.endDate
+        }
       })
     }
   }
@@ -161,6 +191,10 @@ export const ProductProvider = ({
         decreaseQuantity,
         increaseQuantity,
         formattedPrice,
+        selectionRange,
+        updateDateRange,
+        selectedDates,
+        isDateRangeValid
       }}
     >
       {children}

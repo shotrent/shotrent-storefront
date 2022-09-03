@@ -6,6 +6,9 @@ import { StoreProvider } from "@lib/context/store-context"
 import { CartProvider, MedusaProvider } from "medusa-react"
 import { Hydrate } from "react-query"
 import "styles/globals.css"
+//react-date-range theme
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 import { AppPropsWithLayout } from "types/global"
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
