@@ -1,6 +1,7 @@
 import { canBuy } from "@lib/util/can-buy"
 import { findCheapestPrice } from "@lib/util/prices"
 import { isValid } from "date-fns"
+import differenceInDays from "date-fns/differenceInDays"
 import format from "date-fns/format"
 import isEqual from "lodash/isEqual"
 import { formatVariantPrice, useCart } from "medusa-react"
@@ -22,8 +23,8 @@ interface ProductContext {
   variant?: Variant
   maxQuantityMet: boolean
   selectionRange:{
-    startDate: Date | null,
-    endDate: Date | null,
+    startDate: Date | undefined,
+    endDate: Date | undefined,
     key: string,
   }
   options: Record<string, string>
@@ -55,16 +56,21 @@ export const ProductProvider = ({
   const [options, setOptions] = useState<Record<string, string>>({})
   const [maxQuantityMet, setMaxQuantityMet] = useState<boolean>(false)
   const [inStock, setInStock] = useState<boolean>(true)
-  const [selectionRange, setSelectionRange] = useState({
+  const defaultSelectionRange: {
+    startDate: Date | undefined,
+    endDate: Date | undefined,
+    key: string,
+  } = {
     startDate: new Date(),
     endDate: new Date(),
     key: 'selection',
-  });
+  }
+  const [selectionRange, setSelectionRange] = useState(defaultSelectionRange);
   const { addItem } = useStore()
   const { cart } = useCart()
   const { variants } = product
 
-  const updateDateRange =  (data: React.SetStateAction<{ startDate: Date; endDate: Date; key: string }>) => setSelectionRange(data);
+  const updateDateRange =  (data: React.SetStateAction<{ startDate: Date | undefined; endDate: Date | undefined; key: string }>) => setSelectionRange(data);
   const isDateRangeValid = useMemo(()=> isValid(selectionRange.startDate) && isValid(selectionRange.endDate), [selectionRange]);
   const selectedDates = useMemo(()=>{
     if(!isDateRangeValid) return '';
@@ -145,6 +151,21 @@ export const ProductProvider = ({
   }
 
   const addToCart = () => {
+    const dateRange:{startDate:Date, endDate:Date} = selectionRange as any;
+    const numberOfDays = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
+    const variant = product.variants.find(variant=>{
+      const variantValue = parseInt(variant.options[0].value);
+      return numberOfDays <= variantValue;
+    });
+    const quantity = numberOfDays;
+    console.log({
+      variant: variant,
+      quantity,
+      metadata: {
+        startDate: selectionRange.startDate,
+        endDate: selectionRange.endDate
+      }
+    });
     if (variant) {
       addItem({
         variantId: variant.id,
