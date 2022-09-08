@@ -61,8 +61,8 @@ export const ProductProvider = ({
     endDate: Date | undefined,
     key: string,
   } = {
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate : undefined,
+    endDate : new Date(""),
     key: 'selection',
   }
   const [selectionRange, setSelectionRange] = useState(defaultSelectionRange);
@@ -150,7 +150,7 @@ export const ProductProvider = ({
     setOptions({ ...options, ...update })
   }
 
-  const addToCart = () => {
+  const calculateVariantAndQty = () => {
     const dateRange:{startDate:Date, endDate:Date} = selectionRange as any;
     const numberOfDays = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
     const variant = product.variants.find(variant=>{
@@ -158,14 +158,14 @@ export const ProductProvider = ({
       return numberOfDays <= variantValue;
     });
     const quantity = numberOfDays;
-    console.log({
-      variant: variant,
+    return {
       quantity,
-      metadata: {
-        startDate: selectionRange.startDate,
-        endDate: selectionRange.endDate
-      }
-    });
+      variant
+    }
+  }
+
+  const addToCart = () => {
+    const { variant, quantity } = calculateVariantAndQty();
     if (variant) {
       addItem({
         variantId: variant.id,

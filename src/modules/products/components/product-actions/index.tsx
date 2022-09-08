@@ -16,25 +16,19 @@ type ProductActionsProps = {
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
-  const { updateOptions, addToCart, options, inStock, variant, selectionRange, selectedDates, isDateRangeValid, updateDateRange } =
+  const { addToCart, inStock, selectionRange, selectedDates, isDateRangeValid, updateDateRange } =
     useProductActions();
+
+  const [isDateRangePickerVisible, setIsDateRangePickerVisible] = useState(false);
 
   const handleSelect = (ranges: any) => {
     updateDateRange(ranges.selection);
-    if (ranges.selection.endDate > ranges.selection.startDate)
+    if (ranges.selection.endDate > ranges.selection.startDate) {
       setIsDateRangePickerVisible(false)
+    }      
   }
-  const [isDateRangePickerVisible, setIsDateRangePickerVisible] = useState(false);
-
-  const price = useProductPrice({ id: product.id, variantId: variant?.id })
 
   const { variantPrices } = useProductPrices({ id: product.id });
-  const variantOptions = product.variants.map(variant=> variant.options[0]);
-  const selectedPrice = useMemo(() => {
-    const { variantPrice, cheapestPrice } = price
-
-    return variantPrice || cheapestPrice || null
-  }, [price])
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -52,7 +46,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-row gap-y-6 gap-x-1 text-center">
           {product.variants.map((variant, index) => {
-            if(index===2) return "";
+            if (index === 2) return "";
             return (
               <div key={variant.id} className='flex-grow border border-black'>
                 <div className="bg-black text-white">
@@ -90,64 +84,17 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       )}
 
-      {/* {product.variants.length > 1 && (
-        <div className="my-8 flex flex-col gap-y-6">
-          {product.options.map((option) => {
-            return (
-              <div key={option.id}>
-                <OptionSelect
-                  option={option}
-                  current={options[option.id]}
-                  updateOption={updateOptions}
-                  title={option.title}
-                />
-              </div>
-            )
-          })}
-        </div>
-      )} */}
-
-      {/* <div className="mb-4">
-        {selectedPrice ? (
-          <div className="flex flex-col text-gray-700">
-            <span
-              className={clsx("text-xl-semi", {
-                "text-rose-600": selectedPrice.price_type === "sale",
-              })}
-            >
-              {selectedPrice.calculated_price}
-            </span>
-            {selectedPrice.price_type === "sale" && (
-              <>
-                <p>
-                  <span className="text-gray-500">Original: </span>
-                  <span className="line-through">
-                    {selectedPrice.original_price}
-                  </span>
-                </p>
-                <span className="text-rose-600">
-                  -{selectedPrice.percentage_diff}%
-                </span>
-              </>
-            )}
-          </div>
-        ) : (
-          <div></div>
-        )}
-      </div> */}
-
       <Input
         label="Select Dates"
         name="daterange"
         autoComplete="off"
         value={selectedDates}
-        onClick={() => { setIsDateRangePickerVisible(!isDateRangePickerVisible) }}
-        onChange={()=>{}}
+        onFocus={() => { setIsDateRangePickerVisible(true) }}
+        onChange={() => { }}
       />
 
-      {isDateRangePickerVisible ? (<div className="popup-container bg-white">
-        <div className="popup-inner-container">
-          {/* <div className="close" onClick={()=> setIsDateRangePickerVisible(!isDateRangePickerVisible)}>X</div> */}
+      {isDateRangePickerVisible ? (<div className="relative z-10">
+        <div className="absolute border border-black">         
           <DateRange
             ranges={[selectionRange]}
             onChange={handleSelect}

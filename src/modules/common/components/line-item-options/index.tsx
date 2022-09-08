@@ -1,23 +1,22 @@
+import useProductPrice from "@lib/hooks/use-product-price"
 import { ProductVariant } from "@medusajs/medusa"
+import { useMemo } from "react"
 
-type LineItemOptionsProps = { variant: ProductVariant }
+type LineItemOptionsProps = { variant: ProductVariant, quantity:number }
 
-const LineItemOptions = ({ variant }: LineItemOptionsProps) => {
+const LineItemOptions = ({ variant, quantity }: LineItemOptionsProps) => {
+  const price = useProductPrice({variantId:variant.id, id: variant.product_id})
+  const selectedPrice = useMemo(() => {
+    const { variantPrice, cheapestPrice } = price
+
+    return variantPrice || cheapestPrice || null
+  }, [price])
   return (
-    <div className="text-small-regular text-gray-700">
-      {variant.options.map((option) => {
-        const optionName =
-          variant.product.options.find((opt) => opt.id === option.option_id)
-            ?.title || "Option"
-        return (
-          <div key={option.id}>
-            <span>
-              {optionName}: {option.value}
-            </span>
-          </div>
-        )
-      })}
+    <div className="text-gray-700">
+      <div>Rate: {selectedPrice?.calculated_price} / Day</div>
+      <div>Number of days: {quantity}</div>
     </div>
+    
   )
 }
 

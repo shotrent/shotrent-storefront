@@ -110,25 +110,3 @@
     @apply text-[36px] leading-[48px] font-semibold;
   }
 }
-
-.popup-container {
-  position: relative;
-}
-
-.popup-container .popup-inner-container {
-  position: absolute;
-  border: 1px solid black;
-}
-
-.popup-container .close {
-  position: absolute;
-    right: -18px;
-    top: -18px;
-    background: black;
-    color: white;    
-    height: 25px;
-    width: 25px;
-    font-weight: bold;
-    padding-left: 7px;
-    cursor: pointer;
-}

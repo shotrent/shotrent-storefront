@@ -11,7 +11,7 @@ const FooterNav = () => {
       <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between">
         <div>
           <Link href="/">
-            <a className="text-xl-semi uppercase">Acme</a>
+            <a className="text-xl-semi uppercase">Shotrent</a>
           </Link>
         </div>
         <div className="text-small-regular grid grid-cols-2 gap-x-16">
