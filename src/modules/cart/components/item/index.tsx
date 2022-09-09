@@ -20,7 +20,7 @@ const Item = ({ item, region }: ItemProps) => {
   const selectedDates = useMemo(()=>{
     const startDate:Date = new Date(Date.parse(item.metadata.startDate as any));
     const endDate:Date =  new Date(Date.parse(item.metadata.endDate as any));
-    return `${format(startDate, 'MMM dd, yyyy')} - ${format(endDate, 'MMM dd, yyyy')}`;
+    return `${format(startDate, 'MMM dd')} - ${format(endDate, 'MMM dd')}`;
   },[item]);
   return (
     <div className="grid grid-cols-[122px_1fr] gap-x-4">
@@ -30,9 +30,9 @@ const Item = ({ item, region }: ItemProps) => {
       <div className="text-base-regular flex flex-col gap-y-8">
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
-            <span className="text-xl">{item.title}</span>
-            <LineItemOptions variant={item.variant} quantity={item.quantity} />
-            <span className="text-gray-700">{selectedDates}</span>
+            <span className="text-base font-semibold">{item.title}</span>
+            <span className="font-semibold text-gray-600">{selectedDates}</span>
+            <LineItemOptions variant={item.variant} quantity={item.quantity} />            
           </div>
         </div>
         <div className="flex items-end justify-between text-small-regular flex-1">

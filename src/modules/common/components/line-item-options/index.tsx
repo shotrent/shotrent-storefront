@@ -12,7 +12,7 @@ const LineItemOptions = ({ variant, quantity }: LineItemOptionsProps) => {
     return variantPrice || cheapestPrice || null
   }, [price])
   return (
-    <div className="text-gray-700">
+    <div className="text-gray-600 mt-4">
       <div>Rate: {selectedPrice?.calculated_price} / Day</div>
       <div>Number of days: {quantity}</div>
     </div>
