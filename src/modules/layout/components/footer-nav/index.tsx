@@ -32,33 +32,33 @@ const FooterNav = () => {
             </ul>
           </div>
           <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">Medusa</span>
+            <span className="text-base-semi">Shotrent</span>
             <ul className="grid grid-cols-1 gap-y-2">
               <li>
                 <a
-                  href="https://github.com/medusajs"
+                  href="https://instagram.com/shotrent.in"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  GitHub
+                  Instagram
                 </a>
               </li>
               <li>
                 <a
-                  href="https://docs.medusajs.com"
+                  href="mailto://info@shotrent.in"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Documentation
+                  Email
                 </a>
               </li>
               <li>
                 <a
-                  href="https://github.com/medusajs/nextjs-starter-medusa"
+                  href="https://wa.me/917977503536?text=Hello%2C%20I%20am%20looking%20for%20camera%20on%20rent"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Source code
+                  Whatsapp
                 </a>
               </li>
             </ul>
@@ -67,7 +67,7 @@ const FooterNav = () => {
       </div>
       <div className="flex flex-col-reverse gap-y-4 justify-center xsmall:items-center xsmall:flex-row xsmall:items-end xsmall:justify-between">
         <span className="text-xsmall-regular text-gray-500">
-          © Copyright 2022 ACME
+          © Copyright 2022 SHOTRENT
         </span>
         <div className="min-w-[316px] flex xsmall:justify-end">
           <CountrySelect />

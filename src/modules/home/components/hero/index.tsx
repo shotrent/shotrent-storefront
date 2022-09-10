@@ -3,28 +3,15 @@ import Image from "next/image"
 
 const Hero = () => {
   return (
-    <div className="h-[90vh] w-full relative">
-      <div className="text-white absolute inset-0 z-10 flex flex-col justify-center items-center text-center small:text-left small:justify-end small:items-start small:p-32">
-        <h1 className="text-2xl-semi mb-4 drop-shadow-md shadow-black">
-          Summer styles are finally here
-        </h1>
-        <p className="text-base-regular max-w-[32rem] mb-6 drop-shadow-md shadow-black">
-          This year, our new summer collection will shelter you from the harsh
-          elements of a world that doesn&apos;t care if you live or die.
-        </p>
-        <UnderlineLink href="/store">Explore products</UnderlineLink>
-      </div>
-      <Image
-        src="/hero.jpg"
-        layout="fill"
-        loading="eager"
-        priority={true}
-        quality={90}
-        objectFit="cover"
-        alt="Photo by @thevoncomplex https://unsplash.com/@thevoncomplex"
-        className="absolute inset-0"
-        draggable="false"
-      />
+    <div className="flex flex-col items-center text-center mt-16 bg-amber-100 w-full py-12 px-4">
+
+      <p className="text-lg font-bold text-gray-900 max-w-lg mb-2">
+        Don&rsquo;t have a camera? Rent from us.
+      </p>
+      <p className="text-sm text-gray-700 mb-8">
+        Now rent Full Frame DSLR and lenses the Hassle-free way with delivery across Mumbai and Thane areas.
+      </p>
+      <UnderlineLink href="/store">Explore products</UnderlineLink>
     </div>
   )
 }

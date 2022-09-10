@@ -153,9 +153,11 @@ export const ProductProvider = ({
   const calculateVariantAndQty = () => {
     const dateRange:{startDate:Date, endDate:Date} = selectionRange as any;
     const numberOfDays = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
-    const variant = product.variants.find(variant=>{
+    const variants = [...product.variants];
+    variants.sort((a,b)=> parseInt(b.options[0].value) - parseInt(a.options[0].value));
+    const variant = variants.find(variant=>{
       const variantValue = parseInt(variant.options[0].value);
-      return numberOfDays <= variantValue;
+      return numberOfDays >= variantValue;
     });
     const quantity = numberOfDays;
     return {

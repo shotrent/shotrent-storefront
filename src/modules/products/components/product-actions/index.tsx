@@ -35,7 +35,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       {product.collection && (
         <Link href={`/collections/${product.collection.id}`}>
           <a className="text-small-regular text-gray-700">
-            {product.collection.title}
+            <span className="text-sm font-bold bg-amber-100 p-2 uppercase">
+              {product.collection.title}
+            </span>            
           </a>
         </Link>
       )}
@@ -43,8 +45,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
       <p className="text-base-regular">{product.description}</p>
 
+      
       {product.variants.length > 1 && (
-        <div className="my-8 flex flex-row gap-y-6 gap-x-1 text-center">
+        <div className="mt-8 flex flex-row gap-y-6 gap-x-1 text-center">
           {product.variants.map((variant, index) => {
             if (index === 2) return "";
             return (
@@ -53,7 +56,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                   {variant.title}
                 </div>
                 {variantPrices[index] ? (
-                  <div className="flex flex-col text-gray-700">
+                  <div className="flex flex-col text-gray-700 bg-amber-100">
                     <span
                       className={clsx("text-lg-semi", {
                         "text-rose-600": variantPrices[index].price_type === "sale",
@@ -83,7 +86,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           })}
         </div>
       )}
-
+      {variantPrices && variantPrices.length>1 && (<p className="text-base-regular mb-8 text-gray-700">Rent from {variantPrices[0].calculated_price}/Day reduces to {variantPrices[variantPrices.length - 1].calculated_price}/Day (&gt;30 Days)</p>)}
+      
       <Input
         label="Select Dates"
         name="daterange"
