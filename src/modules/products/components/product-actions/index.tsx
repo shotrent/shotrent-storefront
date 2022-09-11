@@ -98,7 +98,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price}/Day only.</p>)}
       
       <div className="mb-8 mt-4">
-        <p className="mb-2">
+        <p className="mb-4">
           <span className="text-sm bg-amber-100 p-2">Refundable deposit: {deposit}</span>
         </p>
         <p className="text-xs text-gray-700">
