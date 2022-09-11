@@ -57,7 +57,7 @@ const useProductPrices = ({ id }: useProductPricesProps) => {
   }, [product, cart])
 
   const variantPrices = useMemo(() => {
-    if(!cart || !product || !product.variants) return [];
+    if(!cart || !cart.region|| !product || !product.variants) return [];
     const variants = product.variants as CalculatedVariant[]
     return variants.map(variant=> ({
         calculated_price: formatAmount({

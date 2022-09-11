@@ -29,11 +29,11 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
     }
 
     if (product.type) {
-      params.type = product.type.id
+      //params.type = product.type.id
     }
 
     if (product.tags) {
-      params.tags = product.tags.map((t) => t.value)
+     // params.tags = product.tags.map((t) => t.value)
     }
 
     params.is_giftcard = false
@@ -54,11 +54,11 @@ const RelatedProducts = ({ product }: RelatedProductsProps) => {
 
   return (
     <div className="product-page-constraint">
-      <div className="flex flex-col items-center text-center mb-16">
+      <div className="flex flex-col items-center text-center mb-12">
         <span className="text-base-regular text-gray-600 mb-6">
           Related products
         </span>
-        <p className="text-2xl-regular text-gray-900 max-w-lg">
+        <p className="text-lg text-gray-900 max-w-lg">
           You might also want to check out these products.
         </p>
       </div>

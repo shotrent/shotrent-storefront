@@ -5,6 +5,7 @@ import ProductTabs from "@modules/products/components/product-tabs"
 import RelatedProducts from "@modules/products/components/related-products"
 import ProductInfo from "@modules/products/templates/product-info"
 import React, { useRef } from "react"
+import FaqSection from "../components/faq"
 import ImageGallery from "../components/image-gallary"
 import MobileActions from "../components/mobile-actions"
 
@@ -31,10 +32,11 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
           <ProductTabs product={product} />
         </div>
       </div>
+      <FaqSection />
       <div className="content-container my-16 px-6 small:px-8 small:my-32">
         <RelatedProducts product={product} />
       </div>
-      <MobileActions product={product} show={!inView} />
+      
     </ProductProvider>
   )
 }

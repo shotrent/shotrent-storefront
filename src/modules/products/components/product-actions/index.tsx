@@ -9,6 +9,7 @@ import { Product } from "types/medusa"
 import { DateRange, DateRangePicker } from 'react-date-range';
 import Input from "@modules/common/components/input"
 import useProductPrices from "@lib/hooks/use-product-prices"
+import { formatAmount, useCart } from "medusa-react"
 
 type ProductActionsProps = {
   product: Product
@@ -29,6 +30,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   const { variantPrices } = useProductPrices({ id: product.id });
+
+  const {cart} = useCart();
+  const refundableDepositAmount:number = product.metadata?.refundableDeposit as number || 0;
+  const deposit = cart && cart.region && product && product.metadata? formatAmount({
+    amount:  refundableDepositAmount * 100,
+    region: cart?.region,
+    includeTaxes: false
+  }): '';
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -86,8 +95,17 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           })}
         </div>
       )}
-      {variantPrices && variantPrices.length>1 && (<p className="text-base-regular mb-8 text-gray-700">Rent from {variantPrices[0].calculated_price}/Day reduces to {variantPrices[variantPrices.length - 1].calculated_price}/Day (&gt;30 Days)</p>)}
+      {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price}/Day only.</p>)}
       
+      <div className="mb-8 mt-4">
+        <p className="mb-2">
+          <span className="text-sm bg-amber-100 p-2">Refundable deposit: {deposit}</span>
+        </p>
+        <p className="text-xs text-gray-700">
+        Shotrent charges an upfront security deposit to confirm your booking. This is 100% refundable once the rental duration ends and the product is received by Shotrent.
+        </p>
+      </div>
+
       <Input
         label="Select Dates"
         name="daterange"

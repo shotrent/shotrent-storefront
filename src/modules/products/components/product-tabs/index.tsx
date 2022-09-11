@@ -1,7 +1,9 @@
 import { Tab } from "@headlessui/react"
 import { Product } from "@medusajs/medusa"
 import Back from "@modules/common/icons/back"
+import Cart from "@modules/common/icons/cart"
 import FastDelivery from "@modules/common/icons/fast-delivery"
+import Plus from "@modules/common/icons/plus"
 import Refresh from "@modules/common/icons/refresh"
 import clsx from "clsx"
 import { useMemo } from "react"
@@ -18,7 +20,7 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
         component: <ProductInfoTab product={product} />,
       },
       {
-        label: "Shipping & Returns",
+        label: "How Shotrent works",
         component: <ShippingInfoTab />,
       },
     ]
@@ -89,11 +91,7 @@ const ProductInfoTab = ({ product }: ProductTabsProps) => {
           </div>
         </div>
       </div>
-      {product.tags.length ? (
-        <div>
-          <span className="font-semibold">Tags</span>
-        </div>
-      ) : null}
+      
     </Tab.Panel>
   )
 }
@@ -103,33 +101,29 @@ const ShippingInfoTab = () => {
     <Tab.Panel className="text-small-regular py-8">
       <div className="grid grid-cols-1 gap-y-8">
         <div className="flex items-start gap-x-2">
+          <Plus />
+          <div>
+            <span className="font-semibold">Select dates</span>
+            <p className="max-w-sm">
+                Add your rental dates above to know the total rental fee applicable
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start gap-x-2">
+          <Cart />
+          <div>
+            <span className="font-semibold">Checkout</span>
+            <p className="max-w-sm">
+              Add the product to bag and checkout to submit your order inquiry.
+            </p>
+          </div>
+        </div>
+        <div className="flex items-start gap-x-2">
           <FastDelivery />
           <div>
-            <span className="font-semibold">Fast delivery</span>
+            <span className="font-semibold">Delivery</span>
             <p className="max-w-sm">
-              Your package will arrive in 3-5 business days at your pick up
-              location or in the comfort of your home.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-x-2">
-          <Refresh />
-          <div>
-            <span className="font-semibold">Simple exchanges</span>
-            <p className="max-w-sm">
-              Is the fit not quite right? No worries - we&apos;ll exchange your
-              product for a new one.
-            </p>
-          </div>
-        </div>
-        <div className="flex items-start gap-x-2">
-          <Back />
-          <div>
-            <span className="font-semibold">Easy returns</span>
-            <p className="max-w-sm">
-              Just return your product and we&apos;ll refund your money. No
-              questions asked – we&apos;ll do our best to make sure your return
-              is hassle-free.
+              We will deliver (or you may pickup) on the evening prior to your rental start date.
             </p>
           </div>
         </div>
