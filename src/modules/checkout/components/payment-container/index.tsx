@@ -22,8 +22,8 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
     description: "Secure payment with PayPal",
   },
   manual: {
-    title: "Test payment",
-    description: "Test payment using medusa-payment-manual",
+    title: "Cash on Delivery",
+    description: "",
   },
 }
 
@@ -78,9 +78,8 @@ const PaymentElement = ({
           <PaymentStripe />
         </div>
       )
-    case "manual":
-      // We only display the test payment form if we are in a development environment
-      return process.env.NODE_ENV === "development" ? <PaymentTest /> : null
+    case "manual":     
+      return null
     default:
       return null
   }
