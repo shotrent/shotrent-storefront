@@ -97,14 +97,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       )}
       {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price}/Day only.</p>)}
       
-      <div className="mb-8 mt-4">
+      {refundableDepositAmount > 0 ? (<div className="mb-8 mt-4">
         <p className="mb-4">
           <span className="text-sm bg-amber-100 p-2">Refundable deposit: {deposit}</span>
         </p>
         <p className="text-xs text-gray-700">
         Shotrent charges an upfront security deposit to confirm your booking. This is 100% refundable once the rental duration ends and the product is received by Shotrent.
         </p>
-      </div>
+      </div>): <div className="mb-4"></div>}
 
       <Input
         label="Select Dates"
