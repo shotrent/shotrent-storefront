@@ -2,7 +2,7 @@ import useProductPrice from "@lib/hooks/use-product-price"
 import { ProductVariant } from "@medusajs/medusa"
 import { useMemo } from "react"
 
-type LineItemOptionsProps = { variant: ProductVariant, quantity:number }
+type LineItemOptionsProps = { variant: ProductVariant, quantity?:number }
 
 const LineItemOptions = ({ variant, quantity }: LineItemOptionsProps) => {
   const price = useProductPrice({variantId:variant.id, id: variant.product_id})
