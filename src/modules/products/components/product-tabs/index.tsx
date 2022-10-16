@@ -14,14 +14,14 @@ type ProductTabsProps = {
 
 const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = useMemo(() => {
-    return [
-      {
-        label: "Product Information",
-        component: <ProductInfoTab product={product} />,
-      },
+    return [      
       {
         label: "How Shotrent works",
         component: <ShippingInfoTab />,
+      },
+      {
+        label: "Product Information",
+        component: <ProductInfoTab product={product} />,
       },
     ]
   }, [product])

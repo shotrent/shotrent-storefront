@@ -29,7 +29,7 @@ const Items = ({ items, region, cartId }: ItemsProps) => {
                   <div className="flex flex-col flex-1 text-small-regular">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h3 className="text-base-regular overflow-ellipsis overflow-hidden whitespace-nowrap mr-4">
+                        <h3 className="text-base-regular overflow-ellipsis overflow-hidden mr-4">
                           <Link
                             href={`/products/${item.variant.product.handle}`}
                           >

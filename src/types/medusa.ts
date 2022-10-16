@@ -7,7 +7,8 @@ import {
 export type Variant = Omit<ProductVariant, "beforeInsert">
 
 export interface Product extends Omit<MedusaProduct, "variants"> {
-  variants: Variant[]
+  variants: Variant[],
+  metadata:any
 }
 
 export interface Region extends Omit<MedusaRegion, "beforeInsert"> {}

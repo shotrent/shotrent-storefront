@@ -52,7 +52,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       )}
       <h3 className="text-xl-regular">{product.title}</h3>
 
-      <p className="text-base-regular">{product.description}</p>
+      <div className="mt-4">
+        <h4 className="text-sm font-medium bg-amber-100 p-2 inline-block mb-2">What is in the box?</h4>
+        <div className="text-base-regular" dangerouslySetInnerHTML={{__html: product.metadata.inTheBox || ""}}></div>
+
+      </div>
 
       
       {product.variants.length > 1 && (
@@ -97,10 +101,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       )}
       {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price}/Day only.</p>)}
       
-      {refundableDepositAmount > 0 ? (<div className="mb-8 mt-4">
-        <p className="mb-4">
-          <span className="text-sm bg-amber-100 p-2">Refundable deposit: {deposit}</span>
-        </p>
+      {refundableDepositAmount > 0 ? (<div className="mb-8 mt-2">
+        <div className="mb-2">
+          <span className="text-sm bg-amber-100 p-2 inline-block mr-2">Refundable deposit</span>
+          <span className="text-base-regular">{deposit}</span>
+        </div>
         <p className="text-xs text-gray-700">
         Shotrent charges an upfront security deposit to confirm your booking. This is 100% refundable once the rental duration ends and the product is received by Shotrent.
         </p>
