@@ -41,6 +41,17 @@ const Confirmed: NextPageWithLayout = () => {
   }
 
   if (isSuccess) {
+    const gtag =  (window as  any).gtag;
+    if(gtag) {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-957359900/z2t_CKCCl4AYEJzOwMgD',
+        'value': data.total,
+        'currency': data.currency_code,
+        'transaction_id': data.id,
+      });
+    }
+
+
     return (
       <>
         <Head
