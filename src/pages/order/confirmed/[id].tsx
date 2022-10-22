@@ -38,6 +38,12 @@ const Confirmed: NextPageWithLayout = () => {
           'currency': data.currency_code,
           'transaction_id': data.id,
         });
+        console.log({
+          'send_to': 'AW-957359900/z2t_CKCCl4AYEJzOwMgD',
+          'value': data.total,
+          'currency': data.currency_code,
+          'transaction_id': data.id,
+        });
       }
     }
   }, [isSuccess, data]);
