@@ -37,7 +37,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     amount:  refundableDepositAmount * 100,
     region: cart?.region,
     includeTaxes: false
-  }): '';
+  }).slice(0, -3): '';
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -75,14 +75,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                         "text-rose-600": variantPrices[index].price_type === "sale",
                       })}
                     >
-                      {variantPrices[index].calculated_price}
+                      {variantPrices[index].calculated_price.slice(0, -3)}
                     </span>
                     {variantPrices[index].price_type === "sale" && (
                       <>
                         <p>
                           <span className="text-gray-500">Original: </span>
                           <span className="line-through">
-                            {variantPrices[index].original_price}
+                            {variantPrices[index].original_price.slice(0, -3)}
                           </span>
                         </p>
                         <span className="text-rose-600">
@@ -99,7 +99,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           })}
         </div>
       )}
-      {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price}/Day only.</p>)}
+      {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price.slice(0, -3)}/Day only.</p>)}
       
       {refundableDepositAmount > 0 ? (<div className="mb-8 mt-2">
         <div className="mb-2">
