@@ -36,7 +36,7 @@ const ProductPreview = ({
               ) : (
                 <div className="w-20 h-6 animate-pulse bg-gray-100"></div>
               )}
-              <span className="text-gray-500"> / Day</span>
+              <span className="text-gray-500"> /Day</span>
             </div>
           </div>
         </div>
