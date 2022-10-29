@@ -120,7 +120,7 @@
   }
 
   .pricing-circle-selected {
-    @apply bg-amber-200 font-bold w-16 h-16 py-5
+    @apply bg-amber-200 font-extrabold w-16 h-16 py-5
   }
 
   .pricing-circle:hover {

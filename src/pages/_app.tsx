@@ -10,6 +10,10 @@ import "styles/globals.css"
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { AppPropsWithLayout } from "types/global"
+//fontawesome css
+import { config } from '@fortawesome/fontawesome-svg-core'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+config.autoAddCss = false
 
 function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)

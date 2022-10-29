@@ -10,7 +10,8 @@ import { DateRange, DateRangePicker } from 'react-date-range';
 import Input from "@modules/common/components/input"
 import useProductPrices from "@lib/hooks/use-product-prices"
 import { formatAmount, useCart } from "medusa-react"
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShield, faBagShopping, faTruckFast } from '@fortawesome/free-solid-svg-icons'
 type ProductActionsProps = {
   product: Product
 }
@@ -60,9 +61,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       </div>
 
       <div className="mt-4">        
-        <div className="my-1"><span className="fa fa-trash"></span> FREE <span className="underline">Shotrent Care</span></div>
-        <div className="my-1"><span className="fa fa-trash"></span> Option to <span className="underline">keep it forever</span></div>
-        <div className="my-1"><span className="fa fa-trash"></span> Delivery in 1–3 business days</div>
+        <div className="my-2"> <FontAwesomeIcon icon={faShield} className="mr-2 w-8" /> FREE <span className="underline">Shotrent Care</span></div>
+        <div className="my-2"> <FontAwesomeIcon icon={faBagShopping} className="mr-2 w-8" /> Option to <span className="underline">keep it forever</span></div>
+        <div className="my-2"> <FontAwesomeIcon icon={faTruckFast} className="mr-2 w-8" /> Delivery in 1–3 business days</div>
       </div>
 
       <div className="mt-4">
@@ -122,7 +123,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       )} */}
       
-      {refundableDepositAmount > 0 ? (<div className="mb-8 mt-2">
+      {/* {refundableDepositAmount > 0 ? (<div className="mb-8 mt-2">
         <div className="mb-2">
           <span className="text-sm bg-amber-100 p-2 inline-block mr-2">Refundable deposit</span>
           <span className="text-base-regular">{deposit}</span>
@@ -130,7 +131,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         <p className="text-xs text-gray-700">
         Shotrent charges an upfront security deposit to confirm your booking. This is 100% refundable once the rental duration ends and the product is received by Shotrent.
         </p>
-      </div>): <div className="mb-4"></div>}
+      </div>): <div className="mb-4"></div>} */}
 
       {/* <Input
         label="Select Dates"
@@ -154,7 +155,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       </div>) : ""}
 
 
-      <Button className="mt-4" onClick={addToCart}>
+      <Button className="mt-12" onClick={addToCart}>
         {!inStock ? "Out of stock" : "Add to cart"}
       </Button>
     </div>
