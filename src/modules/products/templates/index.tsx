@@ -29,7 +29,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
           ref={info}
         >
           <ProductInfo product={product} />
-          <ProductTabs product={product} />
+          
         </div>
       </div>
       <FaqSection />

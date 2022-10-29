@@ -113,4 +113,27 @@
   .flex-flow-wrap {
     flex-flow: wrap;
   }
+
+  .pricing-circle {
+    @apply flex-none bg-slate-100 shadow-md cursor-pointer w-14 h-14 text-center rounded-full py-4 mr-2
+    
+  }
+
+  .pricing-circle-selected {
+    @apply bg-amber-200 font-bold w-16 h-16 py-5
+  }
+
+  .pricing-circle:hover {
+    @apply bg-amber-100 font-bold
+  }
+
+  .pricing-circle .circle-footer {
+    @apply relative top-5 text-slate-500 text-sm
+  }
+
+  .pricing-circle .circle-footer:hover {
+    @apply text-white
+  }
+
+  
 }

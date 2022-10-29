@@ -50,16 +50,38 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           </a>
         </Link>
       )}
-      <h3 className="text-xl-regular">{product.title}</h3>
+
+      <h3 className="text-2xl font-bold">{product.title}</h3>
+
+      <div className="text-base">{product.metadata.inTheBox}</div>
 
       <div className="mt-4">
-        <h4 className="text-sm font-medium bg-amber-100 p-2 inline-block mb-2">What is in the box?</h4>
-        <div className="text-base-regular" dangerouslySetInnerHTML={{__html: product.metadata.inTheBox || ""}}></div>
-
+          <span className="text-2xl font-bold">Rs.36.90</span> per month for 1 month, afterwards cancel anytime
       </div>
 
+      <div className="mt-4">        
+        <div className="my-1"><span className="fa fa-trash"></span> FREE <span className="underline">Shotrent Care</span></div>
+        <div className="my-1"><span className="fa fa-trash"></span> Option to <span className="underline">keep it forever</span></div>
+        <div className="my-1"><span className="fa fa-trash"></span> Delivery in 1–3 business days</div>
+      </div>
+
+      <div className="mt-4">
+        <h2>Select your <span className="underline">minimum rental period</span></h2>
+
+        <div className="flex justify-around px-5 mt-4">
+          <div className="pricing-circle pricing-circle-selected ml-0">1+
+          <div className="relative top-5 text-slate-500 text-sm">Month</div></div>
+          <div className="pricing-circle">3+
+          <div className="circle-footer">Month</div></div>
+          <div className="pricing-circle">6+
+          <div className="circle-footer">Month</div></div>
+          <div className="pricing-circle">12+
+          <div className="circle-footer">Month</div></div>
+        </div>
+
+      </div>
       
-      {product.variants.length > 1 && (
+      {/* {product.variants.length > 1 && (
         <div className="mt-8 flex flex-row gap-y-6 gap-x-1 text-center">
           {product.variants.map((variant, index) => {
             if (index === 2) return "";
@@ -98,8 +120,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
             )
           })}
         </div>
-      )}
-      {variantPrices && variantPrices.length>1 && (<p className="text-xs text-gray-700">Want a lower price? Rent for 30 days or more and pay {variantPrices[variantPrices.length - 1].calculated_price.slice(0, -3)}/Day only.</p>)}
+      )} */}
       
       {refundableDepositAmount > 0 ? (<div className="mb-8 mt-2">
         <div className="mb-2">
@@ -111,14 +132,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </p>
       </div>): <div className="mb-4"></div>}
 
-      <Input
+      {/* <Input
         label="Select Dates"
         name="daterange"
         autoComplete="off"
         value={selectedDates}
         onFocus={() => { setIsDateRangePickerVisible(true) }}
         onChange={() => { }}
-      />
+      /> */}
 
       {isDateRangePickerVisible ? (<div className="relative z-10">
         <div className="absolute border border-black">         
@@ -133,7 +154,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       </div>) : ""}
 
 
-      <Button onClick={addToCart} disabled={!isDateRangeValid}>
+      <Button className="mt-4" onClick={addToCart}>
         {!inStock ? "Out of stock" : "Add to cart"}
       </Button>
     </div>
