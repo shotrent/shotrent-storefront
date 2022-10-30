@@ -27,7 +27,7 @@ const FeatureBox: React.FC<any> = ({title, icon, onClick}) => {
     )
 }
 
-const FeatureSection: React.FC = (props) => {
+const FeatureSection: React.FC<any> = (props) => {
 
     const questions = [
         {
@@ -55,13 +55,15 @@ const FeatureSection: React.FC = (props) => {
     const [state, setState] = useState(null as any);
 
     return (
-        <div className='mx-4 h-72 md:h-52'>
-            <div className='grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-none gap-2'>
-                {!state && questions.map(question=>(<FeatureBox {...question} onClick={()=>setState(question)} />))}   
-                {state &&  (<div className='col-span-2 row-span-2 md:col-span-4 md:row-auto'>
-                    <Feature {...state} onClose={()=> setState(null)} />
-                </div>)} 
-            </div>           
+        <div {...props}>
+            <div className='mx-4 h-72 md:h-52'>
+                <div className='grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-none gap-2'>
+                    {!state && questions.map(question=>(<FeatureBox {...question} onClick={()=>setState(question)} />))}   
+                    {state &&  (<div className='col-span-2 row-span-2 md:col-span-4 md:row-auto'>
+                        <Feature {...state} onClose={()=> setState(null)} />
+                    </div>)} 
+                </div>           
+            </div>
         </div>
     )
 }

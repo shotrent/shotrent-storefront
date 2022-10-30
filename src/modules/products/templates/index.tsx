@@ -24,7 +24,8 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
       <div className="content-container flex flex-col small:flex-row small:items-start py-6 relative">
         <div className="flex flex-col gap-y-8 w-full">
           <ImageGallery images={product.images} />
-          <FeatureSection />
+          <FeatureSection className="hidden lg:block" />
+          <FaqSection className="hidden lg:block" />
         </div>
         <div
           className="small:sticky small:top-20 w-full py-8 small:py-0 small:max-w-[344px] medium:max-w-[400px] flex flex-col gap-y-12"
@@ -34,7 +35,9 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
         </div>
       </div>
       
-      <FaqSection />
+      <FeatureSection className="block lg:hidden" />
+      <FaqSection className="block lg:hidden" />
+      
       <div className="content-container my-16 px-6 small:px-8 small:my-32">
         <RelatedProducts product={product} />
       </div>

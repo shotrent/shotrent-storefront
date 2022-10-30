@@ -18,7 +18,7 @@ const FaqQuestion: React.FC<any> = ({title, content}) => {
     )
 }
 
-const FaqSection: React.FC = (props) => {
+const FaqSection: React.FC<any> = (props) => {
 
     const questions = [
         {
@@ -40,17 +40,19 @@ const FaqSection: React.FC = (props) => {
     ]
 
     return (
-        <div className="dark:bg-gray-800 dark:text-gray-100">
-        <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-64">
-            <p className="p-2 text-sm font-medium tracking-wider text-center text-base-regular text-gray-600 mb-6">How it works</p>
-            <h2 className="mb-12 text-xl font-bold leading-none text-center sm:text-xl">
-                <span className='bg-amber-100 p-2'>Frequently Asked Questions</span>
-            </h2>
-            <div className="grid md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
-                {questions.map(question=>(<FaqQuestion {...question} />))}                
+        <div {...props}>
+            <div className="dark:bg-gray-800 dark:text-gray-100" >
+                <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16">
+                    <p className="p-2 text-sm font-medium tracking-wider text-center text-base-regular text-gray-600 mb-6">How it works</p>
+                    <h2 className="mb-12 text-xl font-bold leading-none text-center sm:text-xl">
+                        <span className='bg-amber-100 p-2'>Frequently Asked Questions</span>
+                    </h2>
+                    <div className="grid sm:p-3">
+                        {questions.map(question=>(<FaqQuestion {...question} />))}                
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
     )
 }
 
