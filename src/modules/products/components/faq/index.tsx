@@ -1,32 +1,53 @@
-import React from 'react';
+import { faCircleChevronDown, faCircleChevronUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from 'react';
+
+const FaqQuestion: React.FC<any> = ({title, content}) => {
+    const [state, setState] = useState(false);
+    const icon = state? faCircleChevronUp : faCircleChevronDown;
+    return(
+        <div className="py-4 h-min border-b">
+                <div className="flex py-2 justify-between cursor-pointer hover:text-slate-500" onClick={e=>setState(state=>!state)}>
+                    <h3 className="font-semibold mr-2">{title}</h3>
+                    <div className="align-right"><FontAwesomeIcon icon={icon} className="" scale={2} /></div>
+                </div>
+                {state && (<p className="py-2 mt-1 text-regular text-sm">
+                        {content}
+                </p>)}
+        </div>
+    )
+}
 
 const FaqSection: React.FC = (props) => {
+
+    const questions = [
+        {
+            title:"What condition are the products in?",
+            content:"Shotrent rents new and as good as new products. Before products are rented out again, they go through a detailed quality check and multi-stage processing, so that each device rented from Grover arrives in great condition. If your device isn’t as expected, our customer service is happy to help."
+        },
+        {
+            title:"When does the rent begin and end?",
+            content:"The first monthly rental payment is charged when ordering, but the rental period does not officially start until you receive your product. The delivery date determines the recurring monthly payment date. If you fall in love and want to keep your product longer than the minimum rental period, you can extend your rental plan in your customer account at any time to reduce the monthly payment. At the end of the minimum rental period, you can keep renting on a monthly basis for the same price or cancel your subscription by returning your device for free.",
+        },
+        {
+            title:"What if my device gets damaged during the rental period?",
+            content:"If something happens during your rental, Shotrent Care is there for you. We pay for 90% of the repair costs for damages of all kinds, including display breakage, water damage, and technical defects. Of course there are no charges for device errors from the manufacturer.",
+        },
+        {
+            title:"Can I also buy a product I'm renting?",
+            content:"Yes. Just keep renting until you can keep it forever for one Rupees. Or buy the product earlier by paying off all your monthly payments at once. To see how many months you would need to rent until it is paid off, you can put your desired product with your rental plan of choice in the rent bag, hover over \"Purchase option\".",
+        }
+    ]
+
     return (
         <div className="dark:bg-gray-800 dark:text-gray-100">
-        <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-32">
+        <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-64">
             <p className="p-2 text-sm font-medium tracking-wider text-center text-base-regular text-gray-600 mb-6">How it works</p>
             <h2 className="mb-12 text-xl font-bold leading-none text-center sm:text-xl">
                 <span className='bg-amber-100 p-2'>Frequently Asked Questions</span>
             </h2>
-            <div className="grid gap-10 md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
-                <div>
-                    <h3 className="font-semibold">What condition are the products in?</h3>
-                    <p className="mt-1 text-gray-700 text-sm">
-                    Shotrent rents new and as good as new products. Before products are rented out again, they go through a detailed quality check and multi-stage processing, so that each device rented from Grover arrives in great condition. If your device isn’t as expected, our customer service is happy to help.
-                    </p>
-                </div>
-                <div>
-                    <h3 className="font-semibold">When does the rent begin and end?</h3>
-                    <p className="mt-1 text-gray-700 text-sm">The first monthly rental payment is charged when ordering, but the rental period does not officially start until you receive your product. The delivery date determines the recurring monthly payment date. If you fall in love and want to keep your product longer than the minimum rental period, you can extend your rental plan in your customer account at any time to reduce the monthly payment. At the end of the minimum rental period, you can keep renting on a monthly basis for the same price or cancel your subscription by returning your device for free.</p>
-                </div>
-                <div>
-                    <h3 className="font-semibold">What if my device gets damaged during the rental period?</h3>
-                    <p className="mt-1 text-gray-700 text-sm">If something happens during your rental, Grover Care is there for you. We pay for 90% of the repair costs for damages of all kinds, including display breakage, water damage, and technical defects. Of course there are no charges for device errors from the manufacturer. </p>
-                </div>
-                <div>
-                    <h3 className="font-semibold">Can I also buy a product I'm renting?</h3>
-                    <p className="mt-1 text-gray-700 text-sm">Yes. Just keep renting until you can keep it forever for one Rupees. Or buy the product earlier by paying off all your monthly payments at once. To see how many months you would need to rent until it is paid off, you can put your desired product with your rental plan of choice in the rent bag, hover over "Purchase option".</p>
-                </div>
+            <div className="grid md:gap-8 sm:p-3 md:grid-cols-2 lg:px-12 xl:px-32">
+                {questions.map(question=>(<FaqQuestion {...question} />))}                
             </div>
         </div>
     </div>
