@@ -16,8 +16,8 @@ const ProductPreview = ({
           <Thumbnail thumbnail={thumbnail} size="full" />
           <div className="text-base-regular mt-2">
             <span>{title}</span>
-            <div className="flex items-center gap-x-2 mt-2">
-              <span className="text-gray-500">From</span>
+            <div className="flex items-center gap-x-1 mt-2">
+              <span className="text-gray-500 text-xs">From</span>
               {price ? (
                 <>
                   {price.price_type === "sale" && (
@@ -26,7 +26,7 @@ const ProductPreview = ({
                     </span>
                   )}
                   <span
-                    className={clsx("font-semibold text-base", {
+                    className={clsx("font-semibold", {
                       "text-rose-500": price.price_type === "sale",
                     })}
                   >
@@ -36,7 +36,7 @@ const ProductPreview = ({
               ) : (
                 <div className="w-20 h-6 animate-pulse bg-gray-100"></div>
               )}
-              <span className="text-gray-500"> /Month</span>
+              <span className="text-gray-500 text-xs">/Month</span>
             </div>
           </div>
         </div>

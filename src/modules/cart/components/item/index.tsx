@@ -17,11 +17,7 @@ type ItemProps = {
 
 const Item = ({ item, region }: ItemProps) => {
   const { updateItem, deleteItem } = useStore()
-  const selectedDates = useMemo(()=>{
-    const startDate:Date = new Date(Date.parse(item.metadata.startDate as any));
-    const endDate:Date =  new Date(Date.parse(item.metadata.endDate as any));
-    return `${format(startDate, 'MMM dd')} - ${format(endDate, 'MMM dd')}`;
-  },[item]);
+ 
   return (
     <div className="grid grid-cols-[122px_1fr] gap-x-4">
       <div className="w-[122px]">
@@ -31,7 +27,7 @@ const Item = ({ item, region }: ItemProps) => {
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
             <span className="text-base font-semibold">{item.title}</span>
-            <span className="font-semibold text-gray-600">{selectedDates}</span>
+           
             <LineItemOptions variant={item.variant} quantity={item.quantity} />            
           </div>
         </div>

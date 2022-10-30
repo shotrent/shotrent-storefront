@@ -22,23 +22,14 @@ interface ProductContext {
   inStock: boolean
   variant?: Variant
   maxQuantityMet: boolean
-  selectionRange:{
-    startDate: Date | undefined,
-    endDate: Date | undefined,
-    key: string,
-  }
   options: Record<string, string>
-  selectedDates:string
-  isDateRangeValid:boolean
   updateOptions: (options: Record<string, string>) => void
   increaseQuantity: () => void
   decreaseQuantity: () => void
   addToCart: () => void
-  updateDateRange: (value:{
-    startDate: Date,
-    endDate: Date,
-    key: string,
-  })=> void
+  rentalPeriod: number;
+  updateRentalPeriod: (value:number) => void;
+  selectedVariant:Variant
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -56,28 +47,13 @@ export const ProductProvider = ({
   const [options, setOptions] = useState<Record<string, string>>({})
   const [maxQuantityMet, setMaxQuantityMet] = useState<boolean>(false)
   const [inStock, setInStock] = useState<boolean>(true)
-  const defaultSelectionRange: {
-    startDate: Date | undefined,
-    endDate: Date | undefined,
-    key: string,
-  } = {
-    startDate : undefined,
-    endDate : new Date(""),
-    key: 'selection',
-  }
-  const [selectionRange, setSelectionRange] = useState(defaultSelectionRange);
+  const [rentalPeriod, setRentalPeriod] = useState(1);
+
   const { addItem } = useStore()
   const { cart } = useCart()
   const { variants } = product
 
-  const updateDateRange =  (data: React.SetStateAction<{ startDate: Date | undefined; endDate: Date | undefined; key: string }>) => setSelectionRange(data);
-  const isDateRangeValid = useMemo(()=> isValid(selectionRange.startDate) && isValid(selectionRange.endDate), [selectionRange]);
-  const selectedDates = useMemo(()=>{
-    if(!isDateRangeValid) return '';
-    const startDate:Date = selectionRange.startDate as any;
-    const endDate:Date = selectionRange.endDate as any;
-    return `${format(startDate, 'MMM dd, yyyy')} - ${format(endDate, 'MMM dd, yyyy')}`;
-  },[selectionRange])
+ 
   useEffect(() => {
     // initialize the option state
     const optionObj: Record<string, string> = {}
@@ -150,16 +126,21 @@ export const ProductProvider = ({
     setOptions({ ...options, ...update })
   }
 
-  const calculateVariantAndQty = () => {
-    const dateRange:{startDate:Date, endDate:Date} = selectionRange as any;
-    const numberOfDays = differenceInDays(dateRange.endDate, dateRange.startDate) + 1;
-    const variants = [...product.variants];
-    variants.sort((a,b)=> parseInt(b.options[0].value) - parseInt(a.options[0].value));
+  const selectedVariant = useMemo(()=>{
     const variant = variants.find(variant=>{
       const variantValue = parseInt(variant.options[0].value);
-      return numberOfDays >= variantValue;
+      return rentalPeriod == variantValue;
+    }) ?? variants[0];
+    return variant;
+  }, [rentalPeriod])
+
+  const calculateVariantAndQty = () => {
+    const variants = [...product.variants];
+    const variant = variants.find(variant=>{
+      const variantValue = parseInt(variant.options[0].value);
+      return rentalPeriod == variantValue;
     });
-    const quantity = numberOfDays;
+    const quantity = rentalPeriod;
     return {
       quantity,
       variant
@@ -173,8 +154,7 @@ export const ProductProvider = ({
         variantId: variant.id,
         quantity,
         metadata: {
-          startDate: selectionRange.startDate,
-          endDate: selectionRange.endDate
+          rentalPeriod: rentalPeriod
         }
       })
     }
@@ -200,6 +180,8 @@ export const ProductProvider = ({
     }
   }
 
+  const updateRentalPeriod = (value:number)=>setRentalPeriod(value);
+
   return (
     <ProductActionContext.Provider
       value={{
@@ -213,11 +195,10 @@ export const ProductProvider = ({
         updateOptions,
         decreaseQuantity,
         increaseQuantity,
-        formattedPrice,
-        selectionRange,
-        updateDateRange,
-        selectedDates,
-        isDateRangeValid
+        formattedPrice,    
+        rentalPeriod,
+        updateRentalPeriod,
+        selectedVariant
       }}
     >
       {children}

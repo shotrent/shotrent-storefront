@@ -13,8 +13,8 @@ const LineItemOptions = ({ variant, quantity }: LineItemOptionsProps) => {
   }, [price])
   return (
     <div className="text-gray-600 mt-4">
-      <div>Rate: {selectedPrice?.calculated_price} /Day</div>
-      <div>Number of days: {quantity}</div>
+      <div>Rate: {selectedPrice?.calculated_price} /Month</div>
+      <div>Rental period: {quantity} month(s)</div>
     </div>
     
   )
