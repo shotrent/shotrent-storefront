@@ -43,8 +43,7 @@ const FaqSection: React.FC<any> = (props) => {
         <div {...props}>
             <div className="dark:bg-gray-800 dark:text-gray-100" >
                 <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16">
-                    <p className="p-2 text-sm font-medium tracking-wider text-center text-base-regular text-gray-600 mb-6">How it works</p>
-                    <h2 className="mb-12 text-xl font-bold leading-none text-center sm:text-xl">
+                    <h2 className="text-lg font-bold leading-none sm:text-xl mb-4">
                         <span className='bg-amber-100 p-2'>Frequently Asked Questions</span>
                     </h2>
                     <div className="grid sm:p-3">

@@ -56,7 +56,7 @@ const FeatureSection: React.FC<any> = (props) => {
 
     return (
         <div {...props}>
-            <div className='mx-4 h-72 md:h-52'>
+            <div className='container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16 h-72 md:h-52'>
                 <div className='grid grid-cols-2 grid-rows-2 md:grid-cols-4 md:grid-rows-none gap-2'>
                     {!state && questions.map(question=>(<FeatureBox {...question} onClick={()=>setState(question)} />))}   
                     {state &&  (<div className='col-span-2 row-span-2 md:col-span-4 md:row-auto'>
