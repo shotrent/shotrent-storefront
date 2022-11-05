@@ -149,3 +149,7 @@ dt {
 dd {
   @apply text-sm text-gray-900 p-5 bg-gray-50
 }
+
+.popover-content {
+  @apply bg-black text-white p-5 w-96 mb-2 drop-shadow-md
+}

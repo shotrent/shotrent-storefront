@@ -12,6 +12,9 @@ import useProductPrices from "@lib/hooks/use-product-prices"
 import { formatAmount, useCart } from "medusa-react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShield, faBagShopping, faTruckFast } from '@fortawesome/free-solid-svg-icons'
+import { Popover } from 'react-tiny-popover'
+import useToggleState from "@lib/hooks/use-toggle-state"
+
 type ProductActionsProps = {
   product: Product
 }
@@ -35,7 +38,15 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   console.log(product.variants);
 
-
+  const {state:purchaseOptionPopover, toggle:purchaseOptionPopoverToggle, close:closePurchaseOptionPopover} = useToggleState();
+  const {state:careOptionPopover, toggle:careOptionPopoverToggle, close:closeCareOptionPopover} = useToggleState();
+  const {state:minimumPeriodPopover, toggle:minimumPeriodPopoverToggle, close:closeMinimumPeriodPopover} = useToggleState();
+  const buyOutPeriod:any= {
+    "1": 9,
+    "3": 16,
+    "6": 21,
+    "12": 26,
+  };
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -85,13 +96,53 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       </div>
 
       <div className="mt-4">        
-        <div className="my-2"> <FontAwesomeIcon icon={faShield} className="mr-2 w-8" /> FREE <span className="underline">Shotrent Care</span></div>
-        <div className="my-2"> <FontAwesomeIcon icon={faBagShopping} className="mr-2 w-8" /> Option to <span className="underline">keep it forever</span></div>
+        <div className="my-2"> <FontAwesomeIcon icon={faShield} className="mr-2 w-8" /> 
+        FREE 
+        <Popover
+          isOpen={careOptionPopover}
+          positions={['top', 'bottom', 'left', 'right']}
+          onClickOutside={closeCareOptionPopover}
+          content={
+          <div className="popover-content">
+            Rent and enjoy your tech worry-free. We cover 90% of the repair costs in all cases of damage. Normal signs of use and device errors of course are completely covered.
+          </div>}
+        >
+          <span className="underline ml-1 cursor-pointer" onClick={careOptionPopoverToggle}>Shotrent Care</span>
+        </Popover>
+        
+        </div>
+        <div className="my-2"> <FontAwesomeIcon icon={faBagShopping} className="mr-2 w-8" /> Option to 
+        <Popover
+          isOpen={purchaseOptionPopover}
+          positions={['top', 'bottom', 'left', 'right']}
+          onClickOutside={closePurchaseOptionPopover}
+          content={
+          <div className="popover-content">
+            With this minimum rental period, you can buy for Rs. 1 after renting for at least {buyOutPeriod[rentalPeriod]} months. Or, pay for the remaining months anytime and buy it immediately. 
+          </div>}
+        >
+          <span className="underline ml-1 cursor-pointer" onClick={purchaseOptionPopoverToggle}>keep it forever</span>
+        </Popover>
+        
+        </div>
         <div className="my-2"> <FontAwesomeIcon icon={faTruckFast} className="mr-2 w-8" /> Delivery in 1–3 business days</div>
       </div>
 
       <div className="mt-4">
-        <h2>Select your <span className="underline">minimum rental period</span></h2>
+        <h2>Select your 
+        <Popover
+          isOpen={minimumPeriodPopover}
+          positions={['top', 'bottom', 'left', 'right']}
+          onClickOutside={closeMinimumPeriodPopover}
+          content={
+          <div className="popover-content">
+            At the end of your minimum rental period, you can keep on renting for the same price or cancel your subscription by sending the product back for free. Switching to a longer rental plan to lower your monthly payments is also possible at any time.
+          </div>}
+        >
+          <span className="underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}>minimum rental period</span>
+        </Popover>
+          
+          </h2>
         <div className="flex justify-around px-5 mt-4">
          {product.variants.length > 1 && (product.variants.map((variant, index) =>(
            <div className={"pricing-circle ml-0 "+ (+variant.options[0].value == rentalPeriod?"pricing-circle-selected":"")}
