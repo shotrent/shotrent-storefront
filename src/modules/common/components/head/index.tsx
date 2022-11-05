@@ -1,7 +1,8 @@
 import NextHead from "next/head"
 import Script from "next/script"
 import React from "react"
-import Gtag from "../Gtag"
+import Clarity from "../clarity"
+import Gtag from "../g-tag"
 
 type HeadProps = {
   title?: string
@@ -22,6 +23,7 @@ const Head: React.FC<HeadProps> = ({ title, description, image }) => {
         <link rel="icon" href="/favicon.ico" />
       </NextHead>
       <Gtag />
+      <Clarity />
     </>
   )
 }
