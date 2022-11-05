@@ -99,7 +99,7 @@ export const useFeaturedProductsQuery = (collection_id?:string[]) => {
   const { cart } = useCart()
 
   const queryResults = useQuery(
-    ["layout_featured_products", cart?.id, cart?.region],
+    ["layout_featured_products", cart?.id, cart?.region, collection_id],
     () => fetchFeaturedProducts(cart?.id!, cart?.region!, collection_id),
     {
       enabled: !!cart?.id && !!cart?.region,
