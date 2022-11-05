@@ -46,13 +46,15 @@ export const useNavigationCollections = () => {
 
 const fetchFeaturedProducts = async (
   cartId: string,
-  region: Region
+  region: Region,
+  collection_id?:string[]
 ): Promise<ProductPreviewType[]> => {
   const products = await medusaClient.products
     .list({
       is_giftcard: false,
       limit: 4,
       cart_id: cartId,
+      collection_id: collection_id
     })
     .then(({ products }) => products)
     .catch((_) => [] as Product[])
@@ -93,12 +95,12 @@ const fetchFeaturedProducts = async (
   })
 }
 
-export const useFeaturedProductsQuery = () => {
+export const useFeaturedProductsQuery = (collection_id?:string[]) => {
   const { cart } = useCart()
 
   const queryResults = useQuery(
     ["layout_featured_products", cart?.id, cart?.region],
-    () => fetchFeaturedProducts(cart?.id!, cart?.region!),
+    () => fetchFeaturedProducts(cart?.id!, cart?.region!, collection_id),
     {
       enabled: !!cart?.id && !!cart?.region,
       staleTime: Infinity,

@@ -16,7 +16,7 @@ const FooterNav = () => {
         </div>
         <div className="text-small-regular grid grid-cols-2 gap-x-16">
           <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">Collections</span>
+            <span className="text-base-semi">Categories</span>
             <ul
               className={clsx("grid grid-cols-1 gap-y-2", {
                 "grid-cols-2": (collections?.length || 0) > 4,
@@ -54,7 +54,7 @@ const FooterNav = () => {
               </li>
               <li>
                 <a
-                  href="https://wa.me/917977503536?text=Hello%2C%20I%20am%20looking%20for%20camera%20on%20rent"
+                  href="https://wa.me/917738713191?text=Hello%2C%20I%20am%20looking%20for%20gadgets%20on%20rent"
                   target="_blank"
                   rel="noreferrer"
                 >

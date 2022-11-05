@@ -1,6 +1,7 @@
 import { faCircleChevronDown, faCircleChevronUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
+import Title from '../title';
 
 const FaqQuestion: React.FC<any> = ({title, content}) => {
     const [state, setState] = useState(false);
@@ -43,9 +44,7 @@ const FaqSection: React.FC<any> = (props) => {
         <div {...props}>
             <div className="dark:bg-gray-800 dark:text-gray-100" >
                 <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16">
-                    <h2 className="text-lg font-bold leading-none sm:text-xl mb-4">
-                        <span className='bg-amber-100 p-2'>Frequently Asked Questions</span>
-                    </h2>
+                    <Title>Frequently asked questions</Title>                   
                     <div className="grid sm:p-3">
                         {questions.map(question=>(<FaqQuestion {...question} />))}                
                     </div>
