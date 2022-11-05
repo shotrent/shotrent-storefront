@@ -36,7 +36,7 @@ const FaqSection: React.FC<any> = (props) => {
         },
         {
             title:"Can I also buy a product I'm renting?",
-            content:"Yes. Just keep renting until you can keep it forever for one Rupees. Or buy the product earlier by paying off all your monthly payments at once. To see how many months you would need to rent until it is paid off, you can put your desired product with your rental plan of choice in the rent bag, hover over \"Purchase option\".",
+            content:"Yes. Just keep renting until you can keep it forever for one Rupee. Or buy the product earlier by paying off all your monthly payments at once. To see how many months you would need to rent until it is paid off, you can put your desired product with your rental plan of choice in the rent bag, hover over \"Purchase option\".",
         }
     ]
 
