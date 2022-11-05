@@ -9,7 +9,7 @@ const Clarity: React.FC = () => {
     <>
       {isProduction && (
         <>         
-          <Script id="gtag-script">
+          <Script id="clarity-script">
             {`
                 (function(c,l,a,r,i,t,y){
                     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
