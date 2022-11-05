@@ -24,7 +24,7 @@ const FaqSection: React.FC<any> = (props) => {
     const questions = [
         {
             title:"What condition are the products in?",
-            content:"Shotrent rents new and as good as new products. Before products are rented out again, they go through a detailed quality check and multi-stage processing, so that each device rented from Grover arrives in great condition. If your device isn’t as expected, our customer service is happy to help."
+            content:"Shotrent rents new and as good as new products. Before products are rented out again, they go through a detailed quality check and multi-stage processing, so that each device rented from Shotrent arrives in great condition. If your device isn’t as expected, our customer service is happy to help."
         },
         {
             title:"When does the rent begin and end?",
