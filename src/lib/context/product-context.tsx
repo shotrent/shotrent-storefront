@@ -132,7 +132,7 @@ export const ProductProvider = ({
       return rentalPeriod == variantValue;
     }) ?? variants[0];
     return variant;
-  }, [rentalPeriod])
+  }, [rentalPeriod, variants])
 
   const calculateVariantAndQty = () => {
     const variants = [...product.variants];

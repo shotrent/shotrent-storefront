@@ -145,7 +145,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           </h2>
         <div className="flex justify-around px-5 mt-4">
          {product.variants.length > 1 && (product.variants.map((variant, index) =>(
-           <div className={"pricing-circle ml-0 "+ (+variant.options[0].value == rentalPeriod?"pricing-circle-selected":"")}
+           <div key={index} className={"pricing-circle ml-0 "+ (+variant.options[0].value == rentalPeriod?"pricing-circle-selected":"")}
             onClick={e=>updateRentalPeriod(+variant.options[0].value)}>{variant.options[0].value}+
             <div className="relative top-5 text-slate-500 text-sm">Month</div>
            </div>

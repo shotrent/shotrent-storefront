@@ -46,7 +46,7 @@ const FaqSection: React.FC<any> = (props) => {
                 <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16">
                     <Title>Frequently asked questions</Title>                   
                     <div className="grid sm:p-3">
-                        {questions.map(question=>(<FaqQuestion {...question} />))}                
+                        {questions.map((question, index)=>(<FaqQuestion key={index} {...question} />))}                
                     </div>
                 </div>
             </div>

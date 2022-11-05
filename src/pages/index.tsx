@@ -31,7 +31,7 @@ const Home: NextPageWithLayout = () => {
       <div className="py-9 md:py-12">
         <UnderlineLink className="justify-center" href="/store">Explore products</UnderlineLink>
       </div>
-      {collections.map(collection=> <FeaturedProducts collection_id={[collection.id]} title={collection.title} />)}
+      {collections.map((collection, index)=> <FeaturedProducts key={index} collection_id={[collection.id]} title={collection.title} />)}
     </>
   )
 }
