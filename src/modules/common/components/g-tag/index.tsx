@@ -19,6 +19,18 @@ const Gtag: React.FC = () => {
 
               gtag('config', 'AW-957359900');
           `}
+          </Script>          
+
+          {/* <!-- Google tag (gtag.js) --> */}
+          <Script async src="https://www.googletagmanager.com/gtag/js?id=G-2CWWVDNWT7"></Script>
+          <Script id="gtag-script-2">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-2CWWVDNWT7');
+            `}
           </Script>
         </>)}
     </>
