@@ -69,6 +69,8 @@ const fetchFeaturedProducts = async (
       return acc
     })
 
+    const firstVariant = variants[0];
+
     return {
       id: p.id,
       title: p.title,
@@ -76,20 +78,20 @@ const fetchFeaturedProducts = async (
       thumbnail: p.thumbnail,
       price: {
         calculated_price: formatAmount({
-          amount: cheapestVariant.calculated_price,
+          amount: firstVariant.calculated_price,
           region: region,
           includeTaxes: false,
         }),
         original_price: formatAmount({
-          amount: cheapestVariant.original_price,
+          amount: firstVariant.original_price,
           region: region,
           includeTaxes: false,
         }),
         difference: getPercentageDiff(
-          cheapestVariant.original_price,
-          cheapestVariant.calculated_price
+          firstVariant.original_price,
+          firstVariant.calculated_price
         ),
-        price_type: cheapestVariant.calculated_price_type,
+        price_type: firstVariant.calculated_price_type,
       },
     }
   })
