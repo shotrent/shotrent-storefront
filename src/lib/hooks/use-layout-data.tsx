@@ -60,16 +60,14 @@ const fetchFeaturedProducts = async (
     .catch((_) => [] as Product[])
 
   return products.map((p) => {
-    const variants = p.variants as CalculatedVariant[]
+    const variants = p.variants as CalculatedVariant[];
 
-    const cheapestVariant = variants.reduce((acc, curr) => {
-      if (acc.calculated_price > curr.calculated_price) {
+    const firstVariant = variants.reduce((acc, curr) => {
+      if (acc.calculated_price < curr.calculated_price) {
         return curr
       }
       return acc
-    })
-
-    const firstVariant = variants[0];
+    });
 
     return {
       id: p.id,
