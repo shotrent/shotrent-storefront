@@ -151,5 +151,5 @@ dd {
 }
 
 .popover-content {
-  @apply bg-black text-white p-5 w-96 mb-2 drop-shadow-md
+  @apply bg-black text-white p-5 w-full md:w-96 mb-2 drop-shadow-md
 }
