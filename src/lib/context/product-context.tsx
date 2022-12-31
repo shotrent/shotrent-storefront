@@ -47,7 +47,7 @@ export const ProductProvider = ({
   const [options, setOptions] = useState<Record<string, string>>({})
   const [maxQuantityMet, setMaxQuantityMet] = useState<boolean>(false)
   const [inStock, setInStock] = useState<boolean>(true)
-  const [rentalPeriod, setRentalPeriod] = useState(1);
+  const [rentalPeriod, setRentalPeriod] = useState(12);
 
   const { addItem } = useStore()
   const { cart } = useCart()
@@ -126,11 +126,15 @@ export const ProductProvider = ({
     setOptions({ ...options, ...update })
   }
 
+  const cheapestVariant = variants.reduce((prev, curr) => {
+    return parseInt(prev.options[0].value) < parseInt(curr.options[0].value) ? prev : curr
+  })
+
   const selectedVariant = useMemo(()=>{
     const variant = variants.find(variant=>{
       const variantValue = parseInt(variant.options[0].value);
       return rentalPeriod == variantValue;
-    }) ?? variants[0];
+    }) ?? cheapestVariant;
     return variant;
   }, [rentalPeriod, variants])
 

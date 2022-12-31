@@ -62,11 +62,12 @@ const fetchFeaturedProducts = async (
   return products.map((p) => {
     const variants = p.variants as CalculatedVariant[];
 
-    const firstVariant = variants.reduce((acc, curr) => {
+    const cheapestVariant = variants.reduce((acc, curr) => {
       if (acc.calculated_price < curr.calculated_price) {
-        return curr
+        return acc
       }
-      return acc
+      return curr
+      
     });
 
     return {
@@ -76,20 +77,20 @@ const fetchFeaturedProducts = async (
       thumbnail: p.thumbnail,
       price: {
         calculated_price: formatAmount({
-          amount: firstVariant.calculated_price,
+          amount: cheapestVariant.calculated_price,
           region: region,
           includeTaxes: false,
         }),
         original_price: formatAmount({
-          amount: firstVariant.original_price,
+          amount: cheapestVariant.original_price,
           region: region,
           includeTaxes: false,
         }),
         difference: getPercentageDiff(
-          firstVariant.original_price,
-          firstVariant.calculated_price
+          cheapestVariant.original_price,
+          cheapestVariant.calculated_price
         ),
-        price_type: firstVariant.calculated_price_type,
+        price_type: cheapestVariant.calculated_price_type,
       },
     }
   })

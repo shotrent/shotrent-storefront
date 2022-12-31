@@ -11,18 +11,13 @@ const transformProductPreview = (
   const variants = product.variants as CalculatedVariant[]
 
   const cheapestVariant = variants.reduce((acc, curr) => {
-    if (acc.calculated_price > curr.calculated_price) {
-      return curr
+    if (acc.calculated_price < curr.calculated_price) {
+      return acc
     }
-    return acc
+    return curr
+    
   })
 
-  const costlyVariant = variants.reduce((acc, curr) => {
-    if (acc.calculated_price < curr.calculated_price) {
-      return curr
-    }
-    return acc
-  });
 
   return {
     id: product.id,
@@ -31,20 +26,20 @@ const transformProductPreview = (
     thumbnail: product.thumbnail,
     price: {
       calculated_price: formatAmount({
-        amount: costlyVariant.calculated_price,
+        amount: cheapestVariant.calculated_price,
         region: region,
         includeTaxes: false,
       }).slice(0, -3),
       original_price: formatAmount({
-        amount: costlyVariant.original_price,
+        amount: cheapestVariant.original_price,
         region: region,
         includeTaxes: false,
       }).slice(0, -3),
       difference: getPercentageDiff(
-        costlyVariant.original_price,
-        costlyVariant.calculated_price
+        cheapestVariant.original_price,
+        cheapestVariant.calculated_price
       ).slice(0, -3),
-      price_type: costlyVariant.calculated_price_type,
+      price_type: cheapestVariant.calculated_price_type,
     },
   }
 }
