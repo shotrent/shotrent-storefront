@@ -6,6 +6,7 @@ import Button from "@modules/common/components/button"
 import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import Trash from "@modules/common/icons/trash"
+import DeliveryDate from "@modules/products/components/delivery-date"
 import Thumbnail from "@modules/products/components/thumbnail"
 import { formatAmount, useCart } from "medusa-react"
 import Link from "next/link"
@@ -67,7 +68,8 @@ const CartDropdown = () => {
                                     <a>{item.title}</a>
                                   </Link>
                                 </h3>
-                                <LineItemOptions variant={item.variant} quantity={item.quantity} />
+                                <DeliveryDate />
+                                <LineItemOptions className="text-xs mt-2" variant={item.variant} quantity={item.quantity} />
                                
                               </div>
                               <div className="flex justify-end">

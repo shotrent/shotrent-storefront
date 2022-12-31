@@ -140,7 +140,7 @@ export const ProductProvider = ({
       const variantValue = parseInt(variant.options[0].value);
       return rentalPeriod == variantValue;
     });
-    const quantity = rentalPeriod;
+    const quantity = 1;
     return {
       quantity,
       variant

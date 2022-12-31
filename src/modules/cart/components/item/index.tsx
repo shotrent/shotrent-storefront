@@ -4,6 +4,7 @@ import LineItemOptions from "@modules/common/components/line-item-options"
 import LineItemPrice from "@modules/common/components/line-item-price"
 import NativeSelect from "@modules/common/components/native-select"
 import Trash from "@modules/common/icons/trash"
+import DeliveryDate from "@modules/products/components/delivery-date"
 import Thumbnail from "@modules/products/components/thumbnail"
 import format from "date-fns/format"
 import isValid from "date-fns/isValid"
@@ -19,15 +20,15 @@ const Item = ({ item, region }: ItemProps) => {
   const { updateItem, deleteItem } = useStore()
  
   return (
-    <div className="grid grid-cols-[122px_1fr] gap-x-4">
-      <div className="w-[122px]">
+    <div className="grid grid-cols-[80px_1fr] gap-x-4">
+      <div className="w-[80px]">
         <Thumbnail thumbnail={item.thumbnail} size="full" />
       </div>
       <div className="text-base-regular flex flex-col gap-y-8">
         <div className="flex items-start justify-between">
           <div className="flex flex-col">
             <span className="text-base font-semibold">{item.title}</span>
-           
+            <DeliveryDate />
             <LineItemOptions variant={item.variant} quantity={item.quantity} />            
           </div>
         </div>

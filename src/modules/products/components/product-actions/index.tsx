@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faShield, faBagShopping, faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import { Popover } from 'react-tiny-popover'
 import useToggleState from "@lib/hooks/use-toggle-state"
+import DeliveryDate from "../delivery-date"
 
 type ProductActionsProps = {
   product: Product
@@ -47,6 +48,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     "6": 21,
     "12": 26,
   };
+  
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -60,11 +62,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </Link>
       )}
 
-      <h3 className="text-2xl font-bold">{product.title}</h3>
+      <div>
+      <h3 className="text-xl font-bold mt-4 mb-0">{product.title}</h3>
+      <DeliveryDate />
+      </div>
 
-      <div className="text-base">{product.metadata.inTheBox}</div>
+      <div className="text-sm">{product.metadata.inTheBox}</div>
 
-      <div className="mt-4">
+      <div className="text-sm mt-2">
           <span className="text-2xl font-bold">
           
           {(variantPrice && (  
@@ -95,8 +100,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           </span> per month for {rentalPeriod} month{rentalPeriod>1?'s':''}, afterwards cancel anytime
       </div>
 
-      <div className="mt-4">        
-        <div className="my-2"> <FontAwesomeIcon icon={faShield} className="mr-2 w-8" /> 
+      <div className="mt-2 text-sm">        
+        <div className=""> <FontAwesomeIcon icon={faShield} className="mr-2 w-8" /> 
         FREE 
         <Popover
           isOpen={careOptionPopover}
@@ -128,7 +133,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         <div className="my-2"> <FontAwesomeIcon icon={faTruckFast} className="mr-2 w-8" /> Delivery in 1–3 business days</div>
       </div>
 
-      <div className="mt-4">
+      <div className="mt-2">
         <h2>Select your 
         <Popover
           isOpen={minimumPeriodPopover}
