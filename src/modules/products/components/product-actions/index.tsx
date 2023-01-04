@@ -11,7 +11,7 @@ import Input from "@modules/common/components/input"
 import useProductPrices from "@lib/hooks/use-product-prices"
 import { formatAmount, useCart } from "medusa-react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShield, faBagShopping, faTruckFast } from '@fortawesome/free-solid-svg-icons'
+import { faShield, faBagShopping, faTruckFast, faInfo, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { Popover } from 'react-tiny-popover'
 import useToggleState from "@lib/hooks/use-toggle-state"
 import DeliveryDate from "../delivery-date"
@@ -97,8 +97,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
             
           )))}
         
-          </span> per month for {rentalPeriod} month{rentalPeriod>1?'s':''}, afterwards cancel anytime
+          </span> per month for {rentalPeriod} month{rentalPeriod>1?'s':''}, afterwards cancel anytime.
+
+          
       </div>
+      
 
       <div className="mt-2 text-sm">        
         <div className=""> <FontAwesomeIcon icon={faShield} className="mr-2 w-8" /> 
@@ -109,7 +112,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           onClickOutside={closeCareOptionPopover}
           content={
           <div className="popover-content">
-            Rent and enjoy your tech worry-free. We cover 90% of the repair costs in all cases of damage. Normal signs of use and device errors of course are completely covered.
+            <p className="text-sm mb-2">
+              Rent and enjoy your tech worry-free. We cover 90% of the repair costs in all cases of damage. Normal signs of use and device errors of course are completely covered.
+            </p>
           </div>}
         >
           <span className="underline ml-1 cursor-pointer" onClick={careOptionPopoverToggle}>Shotrent Care</span>
@@ -123,12 +128,13 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           onClickOutside={closePurchaseOptionPopover}
           content={
           <div className="popover-content">
-            With this minimum rental period, you can buy for Rs. 1 after renting for at least {buyOutPeriod[rentalPeriod]} months. Or, pay for the remaining months anytime and buy it immediately. 
+            <p className="text-sm mb-2">
+              With this rental tenure, you can buy for Rs. 1 after renting for at least {buyOutPeriod[rentalPeriod]} months. Or, pay for the remaining months anytime and buy it immediately. 
+            </p>
           </div>}
         >
           <span className="underline ml-1 cursor-pointer" onClick={purchaseOptionPopoverToggle}>keep it forever</span>
         </Popover>
-        
         </div>
         <div className="my-2"> <FontAwesomeIcon icon={faTruckFast} className="mr-2 w-8" /> Delivery in 1–3 business days</div>
       </div>
@@ -141,13 +147,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           onClickOutside={closeMinimumPeriodPopover}
           content={
           <div className="popover-content">
-            At the end of your minimum rental period, you can keep on renting for the same price or cancel your subscription by sending the product back for free. Switching to a longer rental plan to lower your monthly payments is also possible at any time.
+            <p className="text-sm mb-2">Longer tenures have lower monthly rent.</p>
+            <p className="text-sm mb-2">At the end of your minimum rental period, you can keep renting for the same price for as long as you want.</p>
+            <p className="text-sm mb-2">In case you return the item before the chosen tenure is over, you will be asked to pay a minimal early closure charges.</p>
           </div>}
         >
-          <span className="underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}>minimum rental period</span>
+          <span className="underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}>rental tenure</span>         
         </Popover>
-          
-          </h2>
+          </h2>          
         <div className="flex justify-around px-5 mt-4">
          {product.variants.length > 1 && (product.variants.map((variant, index) =>(
            <div key={index} className={"pricing-circle ml-0 "+ (+variant.options[0].value == rentalPeriod?"pricing-circle-selected":"")}
@@ -158,9 +165,20 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       </div> 
 
-      <Button className="mt-12" onClick={addToCart}>
+      <div className="text-sm text-gray-600 mt-8">To buy this out, keep renting for <span className="font-bold">{buyOutPeriod[rentalPeriod]} months</span> until its paid off. Or, pay for the remaining months anytime and buy it immediately.</div>
+
+      <Button className="mt-4" onClick={addToCart}>
         {!inStock ? "Out of stock" : "Add to cart"}
       </Button>
+
+      <div className="text-sm text-gray-600 ml-5 mt-4">
+        <ul className="list-disc">
+          <li className="mb-2">No deposit needed.</li>
+          <li className="mb-2">Just pay the first month&apos;s rent and we&apos;ll ship your order.</li>
+          <li className="mb-2">The rental period does not start until the product arrives with you.</li>
+          <li className="mb-2">You might need to submit a few KYC documents before we initiate your product&apos;s delivery.</li>
+        </ul>
+      </div>
     </div>
   )
 }
