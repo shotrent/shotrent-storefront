@@ -129,7 +129,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           content={
           <div className="popover-content">
             <p className="text-sm mb-2">
-              With this rental tenure, you can buy for Rs. 1 after renting for at least {buyOutPeriod[rentalPeriod]} months. Or, pay for the remaining months anytime and buy it immediately. 
+              With this rental tenure, 
+              to buy this out, keep renting for <span className="font-bold">{buyOutPeriod[rentalPeriod]} months</span> until its paid off. Or, pay for the remaining months anytime and buy it immediately. 
             </p>
           </div>}
         >
