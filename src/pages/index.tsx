@@ -69,7 +69,7 @@ const Home: NextPageWithLayout = () => {
         <div className="flex flex-wrap justify-start">      
           {collections.map((collection, index)=> 
           <Link key={index} href={`/collections/${collection.id}`}>
-              <div className="text-center w-32 h-32 m-2 p-5 shadow-md cursor-pointer bg-amber-50 border border-amber-100">
+              <div className="text-center w-32 h-32 m-2 p-5 shadow-md cursor-pointer bg-amber-50 border border-amber-200">
               <div className="text-amber-800 mb-2"><FontAwesomeIcon icon={getIcon(collection.metadata.icon as string)} size={'2xl'} /></div>
               <div className="text-sm font-bold break-words">{collection.title}</div>
             </div>
@@ -84,7 +84,7 @@ const Home: NextPageWithLayout = () => {
         <div className="overflow-hidden overflow-x-auto pb-2">
           <div className="flex flex-cols"style={{width:"48rem"}}>
             {cardSlider.map((slide, index)=>(
-            <div key={index} className="shadow-md border border-amber-100 w-96 p-8 mx-2 inline-block bg-amber-50">
+            <div key={index} className="shadow-md border border-amber-200 w-96 p-8 mx-2 inline-block bg-amber-50">
               <div className="text-center text-amber-800 mb-9">{slide.image}</div>
               <div className="text-xl font-bold mb-8">{slide.title}</div>
               <div className="text-base">{slide.description}</div>
