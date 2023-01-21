@@ -42,7 +42,7 @@ const FaqSection: React.FC<any> = (props) => {
 
     return (
         <div {...props}>
-            <div className="dark:bg-gray-800 dark:text-gray-100" >
+            <div>
                 <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16">
                     <Title>Frequently asked questions</Title>                   
                     <div className="grid sm:p-3">
