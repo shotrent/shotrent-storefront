@@ -66,7 +66,7 @@ const Home: NextPageWithLayout = () => {
       <Hero />
       <div className="content-container py-9 md:py-12">
         <div className="mb-8"><Title>Categories</Title></div>
-        <div className="flex flex-wrap justify-center lg:justify-start">      
+        <div className="flex flex-wrap justify-start">      
           {collections.map((collection, index)=> 
           <Link key={index} href={`/collections/${collection.id}`}>
               <div className="text-center w-32 h-32 m-2 p-5 shadow-md cursor-pointer bg-amber-50 border border-amber-100">
