@@ -54,7 +54,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const emi = selectedVariant.prices[0].amount/100;
   const tenure = buyOutPeriod[rentalPeriod];
   const totalPayable = emi * tenure;
-  const paidOver = totalPayable - (originalPrice/100);
+  const paidOver = totalPayable - originalPrice;
   const totalPayableFormated = cart && cart.region ?formatAmount({
     amount:  totalPayable * 100,
     region: cart?.region,
