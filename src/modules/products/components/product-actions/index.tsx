@@ -11,7 +11,7 @@ import Input from "@modules/common/components/input"
 import useProductPrices from "@lib/hooks/use-product-prices"
 import { formatAmount, useCart } from "medusa-react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShield, faBagShopping, faTruckFast, faInfo, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faShield, faBagShopping, faTruckFast, faInfo, faCircleInfo, faCircleChevronUp, faCircleChevronDown, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 import { Popover } from 'react-tiny-popover'
 import useToggleState from "@lib/hooks/use-toggle-state"
 import DeliveryDate from "../delivery-date"
@@ -30,12 +30,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   
 
   const {cart} = useCart();
-  const refundableDepositAmount:number = product.metadata?.refundableDeposit as number || 0;
-  const deposit = cart && cart.region && product && product.metadata? formatAmount({
-    amount:  refundableDepositAmount * 100,
+  const originalPrice:number = product.metadata?.originalPrice as number || 0;
+  const actualPrice = cart && cart.region && product && product.metadata? formatAmount({
+    amount:  originalPrice,
     region: cart?.region,
     includeTaxes: false
   }).slice(0, -3): '';
+
+  
 
   console.log(product.variants);
 
@@ -49,6 +51,23 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     "12": 26,
   };
   
+  const emi = selectedVariant.prices[0].amount/100;
+  const tenure = buyOutPeriod[rentalPeriod];
+  const totalPayable = emi * tenure;
+  const paidOver = totalPayable - (originalPrice/100);
+  const totalPayableFormated = cart && cart.region ?formatAmount({
+    amount:  totalPayable * 100,
+    region: cart?.region,
+    includeTaxes: false
+  }).slice(0, -3):'';
+  const paidOverFormated = cart && cart.region ?formatAmount({
+    amount:  paidOver * 100,
+    region: cart?.region,
+    includeTaxes: false
+  }).slice(0, -3):'';
+
+  const [toggleBuyOut, setToggleBuyOut] = useState(true);
+  const buyOutIcon = faInfoCircle;
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -153,7 +172,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
             <p className="text-sm mb-2">In case you return the item before the chosen tenure is over, you will be asked to pay a minimal early closure charges.</p>
           </div>}
         >
-          <span className="underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}>rental tenure</span>         
+          <span className="underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}><span className="font-bold">rental tenure</span></span>         
         </Popover>
           </h2>          
         <div className="flex justify-around px-5 mt-4">
@@ -166,7 +185,37 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       </div> 
 
-      <div className="text-sm text-gray-600 mt-8">To buy this out, keep renting for <span className="font-bold">{buyOutPeriod[rentalPeriod]} months</span> until its paid off. Or, pay for the remaining months anytime and buy it immediately.</div>
+      
+        <div className="mt-8">
+              <div className="text-sm font-bold" onClick={e=>setToggleBuyOut(state=>!state)}>
+                <div className="flex justify-between cursor-pointer">
+                  <div>Want to keep it forever? </div>
+                  <div className="align-right"><FontAwesomeIcon icon={buyOutIcon} className="" scale={2} /></div>
+                </div>
+              </div>
+              {toggleBuyOut && (<div className="">
+                <div className="text-sm text-gray-600 mt-2">To buy this out, <span className="font-bold">keep renting for {tenure} months</span> until its paid off.</div>
+                <div className="text-sm text-gray-600 mt-2">Below is the breakout of how much you will pay over actual price.</div>
+
+                <div className="bg-slate-100 p-5 text-sm text-gray-600 mt-2">
+                  <div className="flex justify-between py-1">
+                    <div>Price</div>
+                    <div className="font-bold">{actualPrice}</div>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <div>Interest paid<span className="font-bold text-xs"> @ 14% pa</span></div>
+                    <div className="font-bold">&#43;{paidOverFormated}</div>
+                  </div>
+                  <div className="flex justify-between border-t border-black border-dashed py-2">
+                    <div>Total payable <span className="font-bold text-xs">&#10090;{tenure} mos x {variantPrice?.calculated_price.slice(0, -3)}&#10091;</span>
+                    </div>
+                    <div className="font-bold">{totalPayableFormated}</div>
+                  </div>
+                </div>
+              </div>)}
+        </div>
+
+    
 
       <Button className="mt-4" onClick={addToCart}>
         {!inStock ? "Out of stock" : "Add to cart"}
