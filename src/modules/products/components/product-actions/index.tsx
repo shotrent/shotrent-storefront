@@ -161,7 +161,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       </div>
 
       <div className="mt-2">
-        <h2>Select your 
+        <h2 className="font-bold">Select your 
         <Popover
           isOpen={minimumPeriodPopover}
           positions={['top', 'bottom', 'left', 'right']}
@@ -173,7 +173,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
             <p className="text-sm mb-2">In case you return the item before the chosen tenure is over, you will be asked to pay a minimal early closure charges.</p>
           </div>}
         >
-          <span className="underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}><span className="font-bold">rental tenure</span></span>         
+          <span className="font-bold underline ml-1 cursor-pointer" onClick={minimumPeriodPopoverToggle}>rental tenure</span>         
         </Popover>
           </h2>          
         <div className="flex justify-around px-5 mt-4">
