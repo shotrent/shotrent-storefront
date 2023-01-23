@@ -32,7 +32,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const {cart} = useCart();
   const originalPrice:number = product.metadata?.originalPrice as number || 0;
   const actualPrice = cart && cart.region && product && product.metadata? formatAmount({
-    amount:  originalPrice,
+    amount:  originalPrice * 100,
     region: cart?.region,
     includeTaxes: false
   }).slice(0, -3): '';
