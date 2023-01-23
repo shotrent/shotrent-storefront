@@ -55,6 +55,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const tenure = buyOutPeriod[rentalPeriod];
   const totalPayable = emi * tenure;
   const paidOver = totalPayable - originalPrice;
+  const interest = Math.ceil((((paidOver / originalPrice)*100)/tenure)*12);
   const totalPayableFormated = cart && cart.region ?formatAmount({
     amount:  totalPayable * 100,
     region: cart?.region,
@@ -203,7 +204,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                     <div className="font-bold">{actualPrice}</div>
                   </div>
                   <div className="flex justify-between py-1">
-                    <div>Interest paid<span className="font-bold text-xs"> @ 14% pa</span></div>
+                    <div>Interest paid<span className="font-bold text-xs"> @ {interest}% pa</span></div>
                     <div className="font-bold">&#43;{paidOverFormated}</div>
                   </div>
                   <div className="flex justify-between border-t border-black border-dashed py-2">
