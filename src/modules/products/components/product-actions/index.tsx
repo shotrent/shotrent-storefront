@@ -117,7 +117,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
             
           )))}
         
-          </span> per month for {rentalPeriod} month{rentalPeriod>1?'s':''}, afterwards cancel anytime.
+          </span> <span className="font-bold">rent per month</span> for {rentalPeriod} month{rentalPeriod>1?'s':''}, afterwards cancel anytime.
 
           
       </div>
@@ -190,13 +190,13 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         <div className="mt-8">
               <div className="text-sm font-bold" onClick={e=>setToggleBuyOut(state=>!state)}>
                 <div className="flex justify-between cursor-pointer">
-                  <div>Want to keep it forever? </div>
+                  <div>Can I also buy the product I'm renting? </div>
                   <div className="align-right"><FontAwesomeIcon icon={buyOutIcon} className="" scale={2} /></div>
                 </div>
               </div>
               {toggleBuyOut && (<div className="">
-                <div className="text-sm text-gray-600 mt-2">To buy this out, <span className="font-bold">keep renting for {tenure} months</span> until its paid off.</div>
-                <div className="text-sm text-gray-600 mt-2">Below is the breakout of how much you will pay over actual price.</div>
+                <div className="text-sm text-gray-600 mt-2">To buy this out, keep renting for <span className="font-bold">{tenure} months</span> until its paid off and it will be yours forever.</div>
+                <div className="text-sm text-gray-600 mt-2">Below is the breakout of how much you will pay over the actual price.</div>
 
                 <div className="bg-slate-100 p-5 text-sm text-gray-600 mt-2">
                   <div className="flex justify-between py-1">
