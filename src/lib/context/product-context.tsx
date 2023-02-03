@@ -161,6 +161,7 @@ export const ProductProvider = ({
   const addToCart = () => {
     const { variant, quantity } = calculateVariantAndQty();
     if (variant) {
+      setInCart(true);
       addItem({
         variantId: variant.id,
         quantity,
