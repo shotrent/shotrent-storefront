@@ -15,6 +15,7 @@ import { faShield, faBagShopping, faTruckFast, faInfo, faCircleInfo, faCircleChe
 import { Popover } from 'react-tiny-popover'
 import useToggleState from "@lib/hooks/use-toggle-state"
 import DeliveryDate from "../delivery-date"
+import { useRouter } from "next/router"
 
 type ProductActionsProps = {
   product: Product
@@ -22,7 +23,7 @@ type ProductActionsProps = {
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
-  const { addToCart, inStock, updateRentalPeriod, rentalPeriod, selectedVariant } =
+  const { addToCart, inStock, updateRentalPeriod, rentalPeriod, selectedVariant, inCart } =
     useProductActions();
 
   const {variantPrice} = useProductPrice({ id: product.id, variantId: selectedVariant.id })
@@ -39,7 +40,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   
 
-  console.log(product.variants);
+  
 
   const {state:purchaseOptionPopover, toggle:purchaseOptionPopoverToggle, close:closePurchaseOptionPopover} = useToggleState();
   const {state:careOptionPopover, toggle:careOptionPopoverToggle, close:closeCareOptionPopover} = useToggleState();
@@ -69,6 +70,10 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   const [toggleBuyOut, setToggleBuyOut] = useState(true);
   const buyOutIcon = faInfoCircle;
+  const router = useRouter();
+  const goToCart = () => {
+    router.push('/cart')
+  }
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -218,8 +223,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
     
 
-      <Button className="mt-4" onClick={addToCart}>
-        {!inStock ? "Out of stock" : "Add to cart"}
+      <Button className="mt-4" onClick={()=>inCart?goToCart():addToCart()}>
+        {inCart ? "Go to cart" : "Add to cart"}
       </Button>
 
       <div className="text-sm text-gray-600 ml-5 mt-4">

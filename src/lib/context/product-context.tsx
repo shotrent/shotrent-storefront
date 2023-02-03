@@ -29,7 +29,8 @@ interface ProductContext {
   addToCart: () => void
   rentalPeriod: number;
   updateRentalPeriod: (value:number) => void;
-  selectedVariant:Variant
+  selectedVariant:Variant,
+  inCart: boolean
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -48,11 +49,12 @@ export const ProductProvider = ({
   const [maxQuantityMet, setMaxQuantityMet] = useState<boolean>(false)
   const [inStock, setInStock] = useState<boolean>(true)
   const [rentalPeriod, setRentalPeriod] = useState(12);
-
+  const [inCart, setInCart]= useState<boolean>(false)
   const { addItem } = useStore()
-  const { cart } = useCart()
+  const { cart, totalItems } = useCart()
   const { variants } = product
 
+  
  
   useEffect(() => {
     // initialize the option state
@@ -138,6 +140,11 @@ export const ProductProvider = ({
     return variant;
   }, [rentalPeriod, variants])
 
+  useEffect(()=>{
+    const isInCart = cart?.items.some(item=>item.variant_id == selectedVariant.id && item.variant.product_id == selectedVariant.product_id) ?? false;
+    setInCart(isInCart);
+  },[totalItems, selectedVariant])
+
   const calculateVariantAndQty = () => {
     const variants = [...product.variants];
     const variant = variants.find(variant=>{
@@ -202,7 +209,8 @@ export const ProductProvider = ({
         formattedPrice,    
         rentalPeriod,
         updateRentalPeriod,
-        selectedVariant
+        selectedVariant,
+        inCart
       }}
     >
       {children}

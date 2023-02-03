@@ -7,7 +7,7 @@ type ProductTabsProps = {
 }
 
 const ProductDescription = ({ product, className }: ProductTabsProps) => {
-  console.log(product.description)
+  
   return (
     <div className={className}>
         <div className="container flex flex-col justify-center px-1 py-4 mx-auto md:px-8 2xl:px-16">
