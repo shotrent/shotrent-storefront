@@ -17,7 +17,7 @@ const LineItemOptions = ({ variant, quantity, className }: LineItemOptionsProps)
   return (
     <div className={className||"text-sm text-gray-600 mt-2"}>      
       <p>{selectedPrice?.calculated_price} per month for {rentalPeriod} month{rentalPeriod>1?'s':''}</p>
-      <p>Quantity: {quantity}</p>
+      {quantity?(<p>Quantity: {quantity}</p>):""}
     </div>
   )
 }
