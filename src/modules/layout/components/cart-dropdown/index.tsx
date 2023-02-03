@@ -18,12 +18,12 @@ const CartDropdown = () => {
   const items = useEnrichedLineItems()
   const { deleteItem } = useStore()
   const { state, open, close } = useCartDropdown()
-
+  
   return (
     <div className="h-full z-50" onMouseEnter={open} onMouseLeave={close}>
       <Popover className="relative h-full">
         <Link href="/cart" passHref>
-          <Popover.Button className="h-full">{`My Bag (${cart?.items.length ?? 0})`}</Popover.Button>
+          <Popover.Button className="h-full">{`My Bag (${totalItems})`}</Popover.Button>
         </Link>
         <Transition
           show={state}
