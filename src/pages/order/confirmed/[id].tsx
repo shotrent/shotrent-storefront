@@ -34,13 +34,13 @@ const Confirmed: NextPageWithLayout = () => {
       if(gtag) {
         gtag('event', 'conversion', {
           'send_to': 'AW-957359900/z2t_CKCCl4AYEJzOwMgD',
-          'value': data.total,
+          'value': data.total / 100,
           'currency': data.currency_code,
           'transaction_id': data.id,
         });
         console.log({
           'send_to': 'AW-957359900/z2t_CKCCl4AYEJzOwMgD',
-          'value': data.total,
+          'value': data.total / 100,
           'currency': data.currency_code,
           'transaction_id': data.id,
         });
