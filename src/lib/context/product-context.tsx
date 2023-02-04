@@ -5,6 +5,7 @@ import differenceInDays from "date-fns/differenceInDays"
 import format from "date-fns/format"
 import isEqual from "lodash/isEqual"
 import { formatVariantPrice, useCart } from "medusa-react"
+import { useRouter } from "next/router"
 import React, {
   createContext,
   useContext,
@@ -30,7 +31,8 @@ interface ProductContext {
   rentalPeriod: number;
   updateRentalPeriod: (value:number) => void;
   selectedVariant:Variant,
-  inCart: boolean
+  inCart: boolean,
+  goToCart: ()=> void
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -194,6 +196,11 @@ export const ProductProvider = ({
 
   const updateRentalPeriod = (value:number)=>setRentalPeriod(value);
 
+  const router = useRouter();
+  const goToCart = () => {
+    router.push('/cart')
+  }
+
   return (
     <ProductActionContext.Provider
       value={{
@@ -211,7 +218,8 @@ export const ProductProvider = ({
         rentalPeriod,
         updateRentalPeriod,
         selectedVariant,
-        inCart
+        inCart,
+        goToCart
       }}
     >
       {children}

@@ -16,16 +16,21 @@ type MobileActionsProps = {
 }
 
 const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
-  const { variant, addToCart, options, inStock, updateOptions } = useProductActions()
+  const { variant, addToCart, options, inStock, updateOptions,updateRentalPeriod, selectedVariant, inCart, goToCart } = useProductActions()
   const { state, open, close } = useToggleState()
 
-  const price = useProductPrice({ id: product.id, variantId: variant?.id })
+  const price = useProductPrice({ id: product.id, variantId: selectedVariant?.id })
 
   const selectedPrice = useMemo(() => {
     const { variantPrice, cheapestPrice } = price
 
     return variantPrice || cheapestPrice || null
-  }, [price])
+  }, [price]);
+
+  const updateOptionsWrap = (v:Record<string,string>)=> {
+    updateRentalPeriod(+Object.values(v)[0]);
+    updateOptions(v);
+  }
 
   return (
     <>
@@ -73,14 +78,14 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
               <Button onClick={open} variant="secondary">
                 <div className="flex items-center justify-between w-full">
                   <span>
-                    {variant
-                      ? Object.values(options).join(" / ")
+                    {selectedVariant
+                      ? selectedVariant.options[0].value +'+ month'
                       : "Select Options"}
                   </span>
                   <ChevronDown />
                 </div>
-              </Button>
-              <Button onClick={addToCart}>{!inStock ? "Out of stock" : "Add to cart"}</Button>
+              </Button>              
+              <Button onClick={()=>inCart?goToCart():addToCart()}>{inCart ? "Go to cart" : "Add to cart"}</Button>
             </div>
           </div>
         </Transition>
@@ -128,8 +133,8 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                               <OptionSelect
                                 option={option}
                                 current={options[option.id]}
-                                updateOption={updateOptions}
-                                title={option.title}
+                                updateOption={updateOptionsWrap}
+                                title={'your rental tenure'}
                               />
                             </div>
                           )

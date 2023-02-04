@@ -4,9 +4,8 @@ import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
-import React, { useMemo, useState } from "react"
+import React, { useState } from "react"
 import { Product } from "types/medusa"
-import { DateRange, DateRangePicker } from 'react-date-range';
 import Input from "@modules/common/components/input"
 import useProductPrices from "@lib/hooks/use-product-prices"
 import { formatAmount, useCart } from "medusa-react"
@@ -15,7 +14,6 @@ import { faShield, faBagShopping, faTruckFast, faInfo, faCircleInfo, faCircleChe
 import { Popover } from 'react-tiny-popover'
 import useToggleState from "@lib/hooks/use-toggle-state"
 import DeliveryDate from "../delivery-date"
-import { useRouter } from "next/router"
 
 type ProductActionsProps = {
   product: Product
@@ -23,7 +21,7 @@ type ProductActionsProps = {
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
-  const { addToCart, inStock, updateRentalPeriod, rentalPeriod, selectedVariant, inCart } =
+  const { addToCart, inStock, updateRentalPeriod, rentalPeriod, selectedVariant, inCart, goToCart } =
     useProductActions();
 
   const {variantPrice} = useProductPrice({ id: product.id, variantId: selectedVariant.id })
@@ -70,10 +68,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   const [toggleBuyOut, setToggleBuyOut] = useState(true);
   const buyOutIcon = faInfoCircle;
-  const router = useRouter();
-  const goToCart = () => {
-    router.push('/cart')
-  }
+  
 
   return (
     <div className="flex flex-col gap-y-2">
