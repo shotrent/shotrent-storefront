@@ -18,8 +18,8 @@ interface Params extends ParsedUrlQuery {
 
 const fetchCollection = async (id: string) => {
   return await medusaClient.collections.retrieve(id).then(({ collection }) => ({
-    id: collection.id,
-    title: collection.title,
+    id: collection?.id,
+    title: collection?.title,
   }))
 }
 
@@ -45,12 +45,18 @@ export const fetchCollectionProducts = async ({
   }
 }
 
+const parseCollectionId = (id:string) => {
+  const splittedId = id.split('_');
+  const result = splittedId[0]+'_'+splittedId[1]?.toUpperCase();
+  return result;
+}
+
 const CollectionPage: NextPageWithLayout<PrefetchedPageProps> = ({
   notFound,
 }) => {
   const { query, isFallback, replace } = useRouter()
-  const id = typeof query.id === "string" ? query.id : ""
-
+  const id = typeof query.id === "string" ? parseCollectionId(query.id) : ""
+  
   const { data, isError, isSuccess, isLoading } = useQuery(
     ["get_collection", id],
     () => fetchCollection(id)
@@ -99,7 +105,7 @@ export const getStaticPaths: GetStaticPaths<Params> = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient()
-  const id = context.params?.id as string
+  const id = parseCollectionId(context.params?.id as string);
 
   await queryClient.prefetchQuery(["get_collection", id], () =>
     fetchCollection(id)
