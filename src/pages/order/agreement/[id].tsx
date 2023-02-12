@@ -101,7 +101,7 @@ const Agreement: NextPageWithLayout = () => {
             <div className="h-full bg-white p-4">
                 <h1 className="text-2xl font-bold mt-32">Shotrent Technologies Private Limited</h1>
                 <h2 className="text-4xl font-bold mt-4">Equipment Rental Agreement</h2>
-                <div className="mt-80">
+                <div className="mt-40">
                   <div className="font-bold">Prepared for:</div>
                   <div>{agreementData.lesseeName}</div>
                 </div>
