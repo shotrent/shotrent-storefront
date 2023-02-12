@@ -74,7 +74,7 @@ const Agreement: NextPageWithLayout = () => {
     const agreementData = {
       lesseeName: `${data.shipping_address.first_name} ${data.shipping_address.last_name}`,
       lessorName: `Shadman Kudchikar`,
-      lessorDesignation:`Managing Director, Shotrent Technologies PVT. LTD.`,
+      lessorDesignation:`Managing Director, Shotrent Technologies Pvt. Ltd.`,
       enteredDate:format(new Date(data.created_at),'do LLL, yyyy'),
       state: data.shipping_address.province,
       rentalRate: `${toWords.convert(data.total/100)} (${formatAmount({amount:data.total, region: data.region})})`,
