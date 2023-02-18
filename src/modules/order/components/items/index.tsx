@@ -21,32 +21,39 @@ const Items = ({ items, region, cartId }: ItemsProps) => {
       {enrichedItems?.length
         ? enrichedItems.map((item) => {
             return (
-              <div className="grid grid-cols-[122px_1fr] gap-x-4" key={item.id}>
-                <div className="w-[122px]">
+              <div>
+                <div className="grid grid-cols-[80px_1fr] gap-x-4" key={item.id}>
+                <div className="w-[80px]">
                   <Thumbnail thumbnail={item.thumbnail} size="full" />
                 </div>
                 <div className="flex flex-col justify-between flex-1">
                   <div className="flex flex-col flex-1 text-small-regular">
                     <div className="flex items-start justify-between">
                       <div>
-                        <h3 className="text-base-regular overflow-ellipsis overflow-hidden mr-4">
+                        <h3 className="text-base font-semibold overflow-ellipsis overflow-hidden mr-4">
                           <Link
                             href={`/products/${item.variant.product.handle}`}
                           >
                             <a>{item.title}</a>
                           </Link>
-                        </h3>
-                        <LineItemOptions variant={item.variant} quantity={item.quantity} />
-                        
-                      </div>
-                      <div className="flex justify-end">
-                        <LineItemPrice
-                          quantity={item.quantity}
-                          region={region}
-                          variant={item.variant as CalculatedVariant}
-                        />
+                        </h3> 
                       </div>
                     </div>
+                    <div className="flex">                       
+                      <LineItemOptions variant={item.variant} />
+                    </div>                    
+                  </div>
+                </div>
+              </div>
+              <div>
+                  <div className="flex items-end justify-between mt-4">
+                    <div className="text-base-regular text-gray-700">
+                      Quantity: {item.quantity}
+                    </div>
+                    <LineItemPrice
+                            quantity={item.quantity}
+                            region={region}
+                            variant={item.variant as CalculatedVariant} />
                   </div>
                 </div>
               </div>
