@@ -1,11 +1,15 @@
 import { Order } from "@medusajs/medusa"
+import Button from "@modules/common/components/button"
 import Help from "@modules/order/components/help"
 import Items from "@modules/order/components/items"
 import OrderDetails from "@modules/order/components/order-details"
 import OrderSummary from "@modules/order/components/order-summary"
 import PaymentDetails from "@modules/order/components/payment-details"
 import ShippingDetails from "@modules/order/components/shipping-details"
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { customClient } from "@lib/config"
+
+
 
 type OrderCompletedTemplateProps = {
   order: Order
@@ -14,6 +18,61 @@ type OrderCompletedTemplateProps = {
 const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
   order,
 }) => {
+
+  const [loading, setLoading] = useState(false);
+  let digio: { init: () => void; submit: (arg0: any, arg1: any, arg2: any) => void };
+
+  const initDigio = () => {
+    const theWindow = window as any;
+    if(theWindow) {
+      const options = {
+        environment : process.env.NODE_ENV === 'production'? 'production': 'sandbox',
+        callback : (response:any) => {
+          if(response.hasOwnProperty("error_code"))
+          {
+            return console.log("error occurred in process");
+          }          
+          console.log(response);
+        },
+        logo : `${theWindow.location.origin}/favicon.ico`, 
+        theme : {
+          primaryColor : "#AB3498",
+          secondaryColor : "#000000"
+          },
+        is_iframe: false
+      }      
+      digio = new theWindow.Digio(options);
+      digio.init();
+    }
+  }
+
+  const submitDigio = (data: { requestId: any; identifier: any; token_id: any }) => {
+     if(digio) {
+      digio.submit(data.requestId, data.identifier, data.token_id)
+     }
+  }
+
+
+
+  const createSignRequest = () => {
+    if(loading) return;    
+    setLoading(true);    
+    customClient.post(`/store/orders/${order.id}/digio/sign/agreement`)
+      .then(res=>{
+        if(!digio) {
+          initDigio();
+        }
+        console.log(res.data);
+        const result = res.data;
+        const params = {requestId: result.data.id, identifier: result.data.signing_parties[0].identifier, token_id: result.data.access_token.id};
+        console.log(params);
+        submitDigio(params);
+      })
+      .finally(()=> setLoading(false));
+  }
+
+
+
   return (
     <div className="bg-gray-50 py-6 min-h-[calc(100vh-64px)]">
       <div className="content-container flex justify-center">
@@ -34,7 +93,14 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
               address={order.shipping_address}
             />
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-10">
+          <div className="grid gap-4 p-10 border-b border-gray-200">
+            <div>
+              <h2 className="text-base-semi">Sign rental agreement</h2>
+              <Button className="w-64 mt-4" onClick={e=>createSignRequest()}>{loading?'Loading...':'e-sign rental agreement'}</Button>
+            </div>
+            
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-10 order-b border-gray-200">
             <Help />
             <OrderSummary order={order} />
           </div>

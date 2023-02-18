@@ -21,7 +21,7 @@ const Items = ({ items, region, cartId }: ItemsProps) => {
       {enrichedItems?.length
         ? enrichedItems.map((item) => {
             return (
-              <div>
+              <div key={item.id}>
                 <div className="grid grid-cols-[80px_1fr] gap-x-4" key={item.id}>
                 <div className="w-[80px]">
                   <Thumbnail thumbnail={item.thumbnail} size="full" />
