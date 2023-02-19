@@ -21,6 +21,17 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
 
   const [loading, setLoading] = useState(false);
   let digio: { init: () => void; submit: (arg0: any, arg1: any, arg2: any) => void };
+  console.log(order)
+  const [isDocumentSigned, setIsDocumentSigned] = useState(false);
+
+  const checkRentalAgreementStatus = () => {
+    customClient.get(`/store/orders/${order.id}/metadata`)
+    .then(res=> setIsDocumentSigned(res.data.isRentalAgreementSigned));
+  }
+
+  useEffect(()=>{
+    checkRentalAgreementStatus();
+  }, [])
 
   const initDigio = () => {
     const theWindow = window as any;
@@ -33,6 +44,14 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
             return console.log("error occurred in process");
           }          
           console.log(response);
+          customClient.post(`/store/orders/${order.id}/digio/sign/agreement/response`)
+          .then(res=>{
+            console.log(res);
+            checkRentalAgreementStatus();
+          })
+          .catch(err=>{
+            console.log(err);
+          })
         },
         logo : `${theWindow.location.origin}/favicon.ico`, 
         theme : {
@@ -93,10 +112,15 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
               address={order.shipping_address}
             />
           </div>
-          <div className="grid gap-4 p-10 border-b border-gray-200">
-            <div>
-              <h2 className="text-base-semi">Sign rental agreement</h2>
-              <Button className="w-64 mt-4" onClick={e=>createSignRequest()}>{loading?'Loading...':'e-sign rental agreement'}</Button>
+          <div className="p-10 border-b border-gray-200">
+            <h1 className="text-base-regular">Complete below steps to confirm your order</h1>
+            <div className="mt-8">
+              <h2 className="text-base-semi">Step 1: Sign rental agreement</h2>
+              <span className="text-small-regular text-gray-700">You will be redirected to digio to completed this step. The agreement will be digitally signed by your Aadhaar.</span>
+              {!isDocumentSigned?
+              (<Button className="w-64 mt-4" onClick={e=>createSignRequest()}>{loading?'Loading...':'e-sign rental agreement'}</Button>)
+              :(<Button className="w-64 mt-4">{'e-sign completed'}</Button>)}
+              
             </div>
             
           </div>

@@ -396,9 +396,11 @@ if (typeof window != "undefined") {
             }
             else{
                 this.popup = window.open('', '', 'toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=1,width=' + newWidth + ',height=' + newHeight + ',top=' + top + ', left=' + left);
-                this.popup.document.body.style.margin = 0;
-                this.popup.document.body.style.padding = 0;
-                this.popup.document.body.innerHTML=that.getLoadingHtml(that.logo, false);
+                if(this.popup) {
+                    this.popup.document.body.style.margin = 0;
+                    this.popup.document.body.style.padding = 0;
+                    this.popup.document.body.innerHTML=that.getLoadingHtml(that.logo, false);
+                }
             }
             try{
                 window.addEventListener("message", function(e){
