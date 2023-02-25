@@ -8,14 +8,14 @@ const FooterNav = () => {
 
   return (
     <div className="content-container flex flex-col gap-y-8 pt-16 pb-8">
-      <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between">
+      <div className="flex flex-col xsmall:flex-row items-start justify-between">
         <div>
           <Link href="/">
             <a className="text-xl-semi uppercase">Shotrent</a>
           </Link>
         </div>
-        <div className="text-small-regular grid grid-cols-2 gap-x-16">
-          <div className="flex flex-col gap-y-2">
+        <div className="text-small-regular grid md:grid-cols-3 grid-cols-2 gap-x-16">
+          <div className="flex flex-col gap-y-2 mt-8">
             <span className="text-base-semi">Categories</span>
             <ul
               className={clsx("grid grid-cols-1 gap-y-2", {
@@ -31,8 +31,8 @@ const FooterNav = () => {
               ))}
             </ul>
           </div>
-          <div className="flex flex-col gap-y-2">
-            <span className="text-base-semi">Shotrent</span>
+          <div className="flex flex-col gap-y-2 mt-8">
+            <span className="text-base-semi">Connect</span>
             <ul className="grid grid-cols-1 gap-y-2">
               <li>
                 <a
@@ -59,6 +59,47 @@ const FooterNav = () => {
                   rel="noreferrer"
                 >
                   Whatsapp
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="flex flex-col gap-y-2 mt-8">
+            <span className="text-base-semi">Shotrent</span>
+            <ul className="grid grid-cols-1 gap-y-2">
+              <li>
+                <a
+                  href="https://shotrent.in/support"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Support
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://shotrent.in/terms-of-service"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Terms & conditions
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://shotrent.in/privacy-policy"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Privacy policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://shotrent.in/cancellation"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                 Cancellation & Return
                 </a>
               </li>
             </ul>
