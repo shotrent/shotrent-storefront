@@ -23,3 +23,4 @@ const Store: NextPageWithLayout = () => {
 Store.getLayout = (page) => <Layout>{page}</Layout>
 
 export default Store
+
