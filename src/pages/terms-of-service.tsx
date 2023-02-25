@@ -472,7 +472,7 @@ const Template = () => {
         <p className=" mb-4">
             Shotrent Technologies Pvt. Ltd. reserves the right to cancel any orders
             completely or partially before delivery without prior information &amp; in
-            such scenarios, we'll initiate the refund process for the security deposit
+            such scenarios, we&apos;ll initiate the refund process for the security deposit
             amount and the Customer will receive it in their source account within 7-10
             working days.
         </p>

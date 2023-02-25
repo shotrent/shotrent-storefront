@@ -64,13 +64,13 @@ const Template = () => {
         </p>
         <p className="mb-4">
           Yes. While all our products pass a series of stringent quality checks, if
-          you're not happy with the product's condition due to a defect or
+          you&apos;re not happy with the product&apos;s condition due to a defect or
           non-functionality, you may return the same at the time of delivery. If
           notified at the time of delivery, some exceptions can be considered in a
           valid case or circumstance. Please note, a return option will not be
           available at the time of delivery once our team exits your premises after
           successful confirmation of your order delivery. We also advise checking the
-          product's specified dimensions before placing the order, as item rejection
+          product&apos;s specified dimensions before placing the order, as item rejection
           will not be considered eligible for return.
         </p>
         <p className="text-xl font-bold mt-8 mb-4">4. Can I close my rental subscription prior to the committed tenure ?</p>
@@ -84,14 +84,14 @@ const Template = () => {
         </p>
         <ul>
           <li>Log in to your Shotrent account. </li>
-          <li>Click on 'New Request' and choose 'Close Subscription.'</li>
+          <li>Click on &apos;New Request&apos; and choose &apos;Close Subscription.&apos;</li>
           <li>Select the products you want to return.</li>
           <li>Choose a return date as per your convenience.</li>
         </ul>
         To avoid early closure charges, you can also consider the following options.
         <ul>
           <li>
-            In case you're looking to close your subscription due to relocation, you
+            In case you&apos;re looking to close your subscription due to relocation, you
             can check our list of operational cities and continue your current
             subscription from the new city.
           </li>

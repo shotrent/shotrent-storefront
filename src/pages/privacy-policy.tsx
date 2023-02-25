@@ -123,7 +123,7 @@ const Template = () => {
           <ul>
             <li>
               <b>(a)&nbsp;Personal Information:</b> All the information that we
-              collect is related to provide Shotrent's services features. We never
+              collect is related to provide Shotrent&apos;s services features. We never
               receive any information unless you expressly choose to share it with us.
               Some examples of your personal information collected are Full-Name,
               Mobile Number, Delivery Address etc.
@@ -286,7 +286,7 @@ const Template = () => {
         <p className="text-xl font-bold mt-8 mb-4">13. Opt-Out Policy:</p>
         <p className="mb-4">
           Please email us at
-          <a href="mailto:info@shotrent.in" target="_blank" rel="noopener">
+          <a href="mailto:info@shotrent.in" target="_blank" rel="noreferrer">
             info@shotrent.in
           </a>
           if you no longer wish to receive any information from us.
@@ -306,7 +306,7 @@ const Template = () => {
           Privacy Policy do not govern Personal Information furnished through any
           means other than the Website.If you have any questions about this Privacy
           Policy or Website treatment of your Personal Information, please write to
-          <a href="mailto:info@shotrent.in" target="_blank" rel="noopener">
+          <a href="mailto:info@shotrent.in" target="_blank" rel="noreferrer">
             info@shotrent.in
           </a>
         </p>
@@ -315,7 +315,7 @@ const Template = () => {
           If you have any grievances against the Website privacy practices, or you
           apprehend that your privacy is compromised at the Website, please address
           your complaint/ concerns to
-          <a href="mailto:info@shotrent.in" target="_blank" rel="noopener">
+          <a href="mailto:info@shotrent.in" target="_blank" rel="noreferrer">
             info@shotrent.in
           </a>
           . We assure, we shall pro-actively address your concerns.All disputes
