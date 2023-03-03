@@ -15,6 +15,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
             rel="stylesheet"
           />
+          <script src="https://js.stripe.com/v3/"></script>
         </Head>
         <body>
           <Main />

@@ -1,2 +1,3 @@
 [template.environment]
 NEXT_PUBLIC_MEDUSA_BACKEND_URL="https://api.shotrent.in"
+NEXT_PUBLIC_MEDUSA_STOREFRONT_URL="https://shotrent.in"

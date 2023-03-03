@@ -8,8 +8,10 @@ import PaymentDetails from "@modules/order/components/payment-details"
 import ShippingDetails from "@modules/order/components/shipping-details"
 import React, { useEffect, useState } from "react"
 import { customClient } from "@lib/config"
-
-
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import CheckoutForm from "@modules/stripe/checkout-form"
+const stripePromise = loadStripe('pk_test_51MfHnVSFJnfsfQzupt9IWM7Yn4nZXVtZWBqw6toG8X55hFx5lITfWSnn6A67caSqInWK3UxNV1nDVqff1ZY8vVZ600U9khkDYI');
 
 type OrderCompletedTemplateProps = {
   order: Order
@@ -24,6 +26,15 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
   const [loading, setLoading] = useState(false);
   const [isKycRequestLoading, setIsKycRequestLoading] = useState(false);
   const [orderMetadata, setorderMetadata] = useState({} as any);
+  const [stripeOptions, setStripeOptions] = useState({
+    // passing the client secret obtained from the server
+    clientSecret: undefined,
+  });
+
+  const getStripSubscription = () => {
+    customClient.get(`/store/orders/${order.id}/stripe/subscription`)
+    .then(res=> setStripeOptions(res.data));
+  }
 
   const getOrderMetadata = () => {
     customClient.get(`/store/orders/${order.id}/metadata`)
@@ -32,6 +43,7 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
 
   useEffect(()=>{
     getOrderMetadata();
+    getStripSubscription();
   }, [])
 
   const initDigio = (callback:(arg1:any)=>void) => {
@@ -178,12 +190,19 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
               shippingMethods={order.shipping_methods}
               address={order.shipping_address}
             />
-          </div>
+          </div>          
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-10 order-b border-gray-200">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 p-10 border-b border-gray-200">
             <Help />
             <OrderSummary order={order} />
           </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 p-10 border-b border-gray-200">
+            {stripeOptions.clientSecret?(<Elements stripe={stripePromise} options={stripeOptions}>
+              <CheckoutForm orderId={order.id} />
+            </Elements>):''}
+          </div>
+
         </div>
       </div>
     </div>
