@@ -1,6 +1,8 @@
 import { MEDUSA_STOREFRONT_URL } from '@lib/config';
 import Button from '@modules/common/components/button';
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
+import { StripeError } from '@stripe/stripe-js';
+import { useState } from 'react';
 
 type CheckoutFormProps = {
   orderId:string
@@ -9,8 +11,9 @@ type CheckoutFormProps = {
 const CheckoutForm = (props:CheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
-
+  const [error, setError] = useState<StripeError | null>(null);
   const handleSubmit = async (event: { preventDefault: () => void; }) => {
+    setError(null);
     // We don't want to let default form submission happen here,
     // which would refresh the page.
     event.preventDefault();
@@ -32,7 +35,7 @@ const CheckoutForm = (props:CheckoutFormProps) => {
 
     if (result.error) {
       // Show error to your customer (for example, payment details incomplete)
-      console.log(result.error.message);
+      setError(result.error);
     } else {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
@@ -40,9 +43,10 @@ const CheckoutForm = (props:CheckoutFormProps) => {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
+  return (    
+    <form onSubmit={handleSubmit}>      
       <PaymentElement />
+      {error?(<div className='text-small-regular bg-red-100 text-red-800 border border-red-800 p-2 mt-4'>{error.message}</div>):""}
       <Button className='mt-4' disabled={!stripe}>Subscribe</Button>
     </form>
   )

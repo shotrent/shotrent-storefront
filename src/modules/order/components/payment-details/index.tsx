@@ -62,7 +62,7 @@ const StripeDetails = ({ payment }: { payment: Payment }) => {
 const TestDetails = () => {
   return (
     <div className="flex flex-col text-base-regular">
-      <span className="text-small-regular text-gray-700">Cash on Delivery</span>
+      <span className="text-small-regular text-gray-700">Pay on Delivery</span>
     </div>
   )
 }

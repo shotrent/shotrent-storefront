@@ -1,3 +1,4 @@
 [template.environment]
 NEXT_PUBLIC_MEDUSA_BACKEND_URL="https://api.shotrent.in"
 NEXT_PUBLIC_MEDUSA_STOREFRONT_URL="https://shotrent.in"
+NEXT_STRIPE_PUBLISHABLE_KEY="pk_live_51MfHnVSFJnfsfQzuM907Fp0sIIHmF3kawjd44qL3gi5V6Rm7M1Xyl3CA9UYOzcuBkO2v41VjPKlJhd6X6ZqmfnwG004onb6woQ"

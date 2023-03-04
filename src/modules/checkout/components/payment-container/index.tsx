@@ -22,7 +22,7 @@ const PaymentInfoMap: Record<string, { title: string; description: string }> = {
     description: "Secure payment with PayPal",
   },
   manual: {
-    title: "Cash on Delivery",
+    title: "Pay on Delivery",
     description: "",
   },
 }
