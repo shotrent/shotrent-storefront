@@ -187,7 +187,7 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
                 <ShowStatus isCompleted={stripeOptions.status == 'active'} />
               </div>
               <div className="mt-2 mb-4">
-                <span className="text-small-regular text-gray-700">To complete this step, use Stripe's card payment method to pay and set up automatic payments for your recurring rent invoice. You have the option to cancel this subscription anytime or reach out to <Link href={'/support'}><span className="underline">customer support</span></Link> for assistance.</span>
+                <span className="text-small-regular text-gray-700">To complete this step, use Stripe's card payment method to pay and set up automatic payments for your recurring rent invoice. You have the option to cancel this subscription anytime or reach out to <Link href={'/support'}><span className="underline cursor-pointer">customer support</span></Link> for assistance.</span>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2">
               {stripeOptions.clientSecret && stripeOptions.status == 'incomplete' ?
