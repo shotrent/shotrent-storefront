@@ -11,6 +11,7 @@ import { customClient, STRIPE_PUBLISHABLE_KEY } from "@lib/config"
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from "@modules/stripe/checkout-form"
+import Link from "next/link"
 
 const stripePromise = loadStripe(STRIPE_PUBLISHABLE_KEY);
 
@@ -156,28 +157,28 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
           <OrderDetails order={order} />
 
           <div className="p-10 border-b border-gray-200">
-            <h1 className="text-base-regular mb-0">Please complete below steps to confirm your order</h1>
+            <h1 className="text-base-regular mb-0">To confirm your order, please ensure that you complete the following steps</h1>            
             <div className="mt-8">
               <div className="flex justify-between">
-                <h2 className="text-base-semi">Step 1: E-sign agreement</h2>
-                <ShowStatus isCompleted={orderMetadata.isRentalAgreementSigned} />
+                <h2 className="text-base-semi">Step 1: KYC</h2>
+                <ShowStatus isCompleted={orderMetadata.isKycCompleted} />
               </div>
               <div className="mt-2">
-                <span className="text-small-regular text-gray-700">You will be redirected to Digio to complete this step. The agreement will be digitally signed by your Aadhaar.</span>
-                {!orderMetadata.isRentalAgreementSigned ?
-                  (<Button className="w-64 mt-4" onClick={e => createSignRequest()}>{loading ? 'Loading...' : 'e-sign rental agreement'}</Button>)
-                  : (<Button disabled className="w-64 mt-4">{'e-sign completed'}</Button>)}
+                <span className="text-small-regular text-gray-700">To complete this step, you will be directed to DigiLocker. Your KYC documents, including <span className="font-bold">Aadhaar and PAN</span>, will be retrieved from DigiLocker.</span>
+                {!orderMetadata.isKycCompleted ? (<Button className="w-64 mt-4" onClick={e => createKycRequest()}>{isKycRequestLoading ? 'Loading...' : 'complete kyc'}</Button>)
+                  : (<Button disabled className="w-64 mt-4">{'kyc completed'}</Button>)}
               </div>
             </div>
             <div className="mt-12">
               <div className="flex justify-between">
-                <h2 className="text-base-semi">Step 2: KYC</h2>
-                <ShowStatus isCompleted={orderMetadata.isKycCompleted} />
+                <h2 className="text-base-semi">Step 2: E-sign agreement</h2>
+                <ShowStatus isCompleted={orderMetadata.isRentalAgreementSigned} />
               </div>
               <div className="mt-2">
-                <span className="text-small-regular text-gray-700">You will be redirected to DigiLocker to complete this step. Your KYC documents <span className="font-semibold">Aadhaar and PAN</span> will be fetched from DigiLocker.</span>
-                {!orderMetadata.isKycCompleted ? (<Button className="w-64 mt-4" onClick={e => createKycRequest()}>{isKycRequestLoading ? 'Loading...' : 'complete kyc'}</Button>)
-                  : (<Button disabled className="w-64 mt-4">{'kyc completed'}</Button>)}
+                <span className="text-small-regular text-gray-700">To complete this step, electronically sign the Shotrent equipment rental agreement with your Aadhaar using Digio's signing portal.</span>
+                {!orderMetadata.isRentalAgreementSigned ?
+                  (<Button className="w-64 mt-4" onClick={e => createSignRequest()}>{loading ? 'Loading...' : 'e-sign rental agreement'}</Button>)
+                  : (<Button disabled className="w-64 mt-4">{'e-sign completed'}</Button>)}
               </div>
             </div>
             <div className="mt-12">
@@ -186,7 +187,7 @@ const OrderCompletedTemplate: React.FC<OrderCompletedTemplateProps> = ({
                 <ShowStatus isCompleted={stripeOptions.status == 'active'} />
               </div>
               <div className="mt-2 mb-4">
-                <span className="text-small-regular text-gray-700">Our system will automatically process your payments on the selected dates, making it easy and hassle-free to keep up with your rent payments.</span>
+                <span className="text-small-regular text-gray-700">To complete this step, use Stripe's card payment method to pay and set up automatic payments for your recurring rent invoice. You have the option to cancel this subscription anytime or reach out to <Link href={'/support'}><span className="underline">customer support</span></Link> for assistance.</span>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2">
               {stripeOptions.clientSecret && stripeOptions.status == 'incomplete' ?

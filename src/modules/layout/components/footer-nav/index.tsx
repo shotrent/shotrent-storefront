@@ -67,40 +67,31 @@ const FooterNav = () => {
             <span className="text-base-semi">Shotrent</span>
             <ul className="grid grid-cols-1 gap-y-2">
               <li>
-                <a
-                  href="https://shotrent.in/support"
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <Link
+                  href="/support" >
                   Support
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://shotrent.in/terms-of-service"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href="/terms-of-service"
                 >
                   Terms & conditions
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://shotrent.in/privacy-policy"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href="/privacy-policy"
                 >
                   Privacy policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="https://shotrent.in/cancellation"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href="/cancellation"
                 >
                  Cancellation & Return
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
