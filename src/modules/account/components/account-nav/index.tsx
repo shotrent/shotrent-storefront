@@ -41,6 +41,11 @@ const AccountNav = () => {
                 </AccountNavLink>
               </li>
               <li>
+                <AccountNavLink href="/account/listings" route={route}>
+                  Listings
+                </AccountNavLink>
+              </li>
+              <li>
                 <AccountNavLink href="/account/orders" route={route}>
                   Orders
                 </AccountNavLink>

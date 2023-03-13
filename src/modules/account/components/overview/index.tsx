@@ -43,6 +43,17 @@ const Overview = ({ orders, customer }: OverviewProps) => {
               </Link>
             </li>
             <li>
+              <Link href="/account/listings">
+                <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8">
+                  <div className="flex items-center gap-x-2">
+                    <Package size={16} />
+                    <span>Listings</span>
+                  </div>
+                  <ChevronDown className="transform -rotate-90" />
+                </a>
+              </Link>
+            </li>
+            <li>
               <Link href="/account/orders">
                 <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8">
                   <div className="flex items-center gap-x-2">
