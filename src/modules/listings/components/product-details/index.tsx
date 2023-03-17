@@ -7,7 +7,7 @@ import { RevenuePerMonthProps } from "../revenue-per-month"
 
 export class CreateListingValues {
   title: string = '';
-  amazonLink: string = '';
+  productLink: string = '';
   inventoryQuantity: number = 1;
   variants: ListingVariant[] = [];
 }
@@ -127,7 +127,7 @@ const ProductDetails = () => {
 
                 <Input
                   label="Amazon link"
-                  {...register("amazonLink", {
+                  {...register("productLink", {
                     required: "Amazon link is required",
                   })}
                   autoComplete="sn"
@@ -135,6 +135,7 @@ const ProductDetails = () => {
                   touched={touchedFields}
                   type='text'
                 />
+                <p className="text-sm text-gray-600 font-normal mb-4">Kindly provide us with the product link. This can be the link of marketplaces like Amazon and Flipkart. For example, https://www.amazon.in/ASUS-Vivobook-i7-1165G7-Intel-Iris-Xe-Graphics-X415EA-EK701WS/dp/B0BLP1N74T.</p>
 
                 <Input
                   label="Inventory qunatity"
@@ -148,9 +149,6 @@ const ProductDetails = () => {
                   type='number'
                 />
 
-             
-                <p className="text-sm text-gray-600 font-normal mb-4">Kindly provide us with the product link. This can be the link of marketplaces like Amazon and Flipkart for the product.</p>
-
                 <h2 className="text-base-semi mt-4">Estimate your rental rates</h2>              
                 <Input
                   name="cogs"
@@ -159,11 +157,10 @@ const ProductDetails = () => {
                   defaultValue={35000}
                   onChange={e => setCogs(+e.target.value)}
                 />
-                <p className="text-sm text-gray-600 font-normal mb-4">Kindly provide us with the cost you incurred for the product, and we will propose a pricing structure for varying monthly rental durations in the below plans.</p>
+                <p className="text-sm text-gray-600 font-normal">Kindly provide us with the cost you incurred for the product, and we will propose a pricing structure for varying monthly rental durations in the below plans.</p>
 
-                <h2 className="text-base-semi mt-4">Choose your rental rates</h2>
-                <p className="text-sm text-gray-600 font-normal mb-4">Please choose from the plans below, where each plan displays various monthly rental rates and corresponding earning prices.</p>
                 {planSuggestions.map((currentPlan, index) => <Plan key={index} currentPlan={currentPlan} selectedPlan={plan} selectPlan={selectPlan} isRecommended={index==0} />)}
+                <p className="text-sm text-gray-600 font-normal mb-4">Please choose one from the above plans, where each plan displays various monthly rental rates and corresponding earning prices.</p>
 
               </div>
             </>
