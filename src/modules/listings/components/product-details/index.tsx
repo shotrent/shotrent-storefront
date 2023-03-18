@@ -5,11 +5,18 @@ import { useFormContext } from "react-hook-form"
 import Plan from "../plan"
 import { RevenuePerMonthProps } from "../revenue-per-month"
 
+export enum DurationType {
+  MONTHLY = "monthly",
+  DAILY = "daily",
+}
+
 export class CreateListingValues {
   title: string = '';
-  productLink: string = '';
-  inventoryQuantity: number = 1;
+  product_link: string | null= '';
+  inventory_quantity: number = 0;
+  purchase_price: number= 0;
   variants: ListingVariant[] = [];
+  duration_type:DurationType = DurationType.MONTHLY;
 }
 
 export class ListingVariant {
@@ -23,11 +30,13 @@ const ProductDetails = () => {
   const durationTypes = [
     {
       name: 'Months',
-      variants: ['1', '3', '6', '12']
+      variants: ['1', '3', '6', '12'],
+      type: DurationType.MONTHLY
     },
     {
       name: 'Daily',
-      variants: ['1', '3', '6', '12']
+      variants: ['1', '3', '6', '12'],
+      type: DurationType.DAILY
     }
   ];
 
@@ -104,6 +113,7 @@ const ProductDetails = () => {
   useEffect(()=>{
     const variants = plan.variants.map(v=>({name:v.alias, value:v.revenue, commission: v.commission}));
     methods.setValue('variants', variants);
+    methods.setValue('duration_type', durationType.type);
     console.log(variants);
   }, [plan])
 
@@ -127,7 +137,7 @@ const ProductDetails = () => {
 
                 <Input
                   label="Amazon link"
-                  {...register("productLink", {
+                  {...register("product_link", {
                     required: "Amazon link is required",
                   })}
                   autoComplete="sn"
@@ -139,7 +149,7 @@ const ProductDetails = () => {
 
                 <Input
                   label="Inventory qunatity"
-                  {...register("inventoryQuantity", {
+                  {...register("inventory_quantity", {
                     required: "Inventory qunatity is required",
                   })}
                   defaultValue={1}
@@ -151,8 +161,8 @@ const ProductDetails = () => {
 
                 <h2 className="text-base-semi mt-4">Estimate your rental rates</h2>              
                 <Input
-                  name="cogs"
                   label="Purchase price"
+                  {...register("purchase_price")}                  
                   type='text'
                   defaultValue={35000}
                   onChange={e => setCogs(+e.target.value)}

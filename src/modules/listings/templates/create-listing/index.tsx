@@ -1,15 +1,29 @@
-import { CheckoutProvider } from "@lib/context/checkout-context"
+import { medusaClient } from "@lib/config"
 import Button from "@modules/common/components/button"
-import ChevronDown from "@modules/common/icons/chevron-down"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
 import ProductDetails, { CreateListingValues } from "@modules/listings/components/product-details"
-import Link from "next/link"
+import { useRouter } from "next/router"
+import { useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
+type Error = {
+  type: string;
+  message: string;
+}
 
 const CreateListingTemplate = () => {
+  const router = useRouter();
   const methods = useForm<CreateListingValues>();
-  const onSubmit = (data:CreateListingValues) => console.log(data);
+  const [error, setError] = useState<Error | null>(null);
+  const onSubmit = async (data: CreateListingValues) => {
+    setError(null);
+    medusaClient.client.request("POST", '/store/listings', data)
+      .then(result => {
+        router.push("/account/listings");
+      })
+      .catch(err => {
+        setError(err.response.data as Error)
+      })
+  }
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -22,6 +36,7 @@ const CreateListingTemplate = () => {
           </div>
           <div>
             <ProductDetails />
+            {error ? (<div className='text-small-regular bg-red-100 text-red-800 border border-red-800 p-2 mt-4'>{error.message}</div>) : ""}
             <Button
               variant="primary"
               className="rounded-rounded mt-4"

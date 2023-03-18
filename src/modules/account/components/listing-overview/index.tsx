@@ -13,7 +13,7 @@ const ListingOverview = () => {
         You don&apos;t have any listings yet, let us change that {":)"}
       </p>
       <div className="mt-4">
-        <Link href="/listings/create" passHref>
+        <Link href="/account/listings/create" passHref>
           <Button>Create Listing</Button>
         </Link>
       </div>
