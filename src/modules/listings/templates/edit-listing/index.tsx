@@ -8,17 +8,22 @@ import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { CreateListing } from "@lib/models/listing"
 
+type EditListingTemplateProps = {
+  id:string
+  defaultValues: CreateListing
+}
 
-
-const CreateListingTemplate = () => {
+const EditListingTemplate = (props:EditListingTemplateProps) => {
   const router = useRouter();
-  const methods = useForm<Listing>();
-  const {data, error, isLoading, sendRequest} = useMedusaClient<Listing>({
-    onfulfilled:() => router.push("/account/listings")
+  const methods = useForm<Listing>({
+    defaultValues: props.defaultValues
+  });
+  const {error, isLoading, sendRequest} = useMedusaClient<Listing>({
+    onfulfilled: ()=> router.push(`/account/listings/details/${props.id}`)
   })
 
   const onSubmit = async (value: Listing) => {
-    sendRequest("POST", '/store/listings', value);
+    sendRequest("POST", `/store/listings/${props.id}/edit`, value);
   }
 
 
@@ -27,7 +32,7 @@ const CreateListingTemplate = () => {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <div className="w-full">
           <div className="mb-8 flex flex-col gap-y-4">
-            <h1 className="text-2xl-semi">Create Listing</h1>
+            <h1 className="text-2xl-semi">Edit Listing</h1>
             <p className="text-base-regular">
               Please enter below details
             </p>
@@ -50,4 +55,4 @@ const CreateListingTemplate = () => {
   )
 }
 
-export default CreateListingTemplate
+export default EditListingTemplate

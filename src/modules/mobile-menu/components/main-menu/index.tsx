@@ -1,3 +1,5 @@
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useMobileMenu } from "@lib/context/mobile-menu-context"
 import { useStore } from "@lib/context/store-context"
 import useCountryOptions from "@lib/hooks/use-country-options"
@@ -60,6 +62,21 @@ const MainMenu = () => {
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col gap-y-2">
+            <li className="bg-black text-white p-4 mb-2">
+                <Link href="/account/listings/create">
+                  <a>
+                    <button
+                      className="flex items-center justify-between w-full"
+                      onClick={close}
+                    >
+                      <span className="sr-only">Create listing</span>
+                      <span>Create listing</span>
+                      <FontAwesomeIcon icon={faPlus} />
+                    </button>
+                  </a>
+                </Link>
+              </li>
+
             <li className="bg-gray-50 p-4">
               <Link href="/store">
                 <a>
