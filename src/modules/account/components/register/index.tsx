@@ -42,7 +42,7 @@ const Register = () => {
   })
 
   return (
-    <div className="max-w-sm flex flex-col items-center mt-12">
+    <div className="max-w-sm flex flex-col items-center mt-12 mx-4">
       <h1 className="text-large-semi uppercase mb-6">Become a Shotrent Member</h1>
       <p className="text-center text-base-regular text-gray-700 mb-4">
         Create your Shotrent Member profile, and get access to an enhanced shopping
