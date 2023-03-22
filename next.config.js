@@ -8,7 +8,8 @@ module.exports = withStoreConfig({
     domains: ["medusa-public-images.s3.eu-west-1.amazonaws.com", 
     "localhost", 
     "shotrent-staging.s3.ap-south-1.amazonaws.com",
-    "shotrent.s3.amazonaws.com"],
+    "shotrent.s3.amazonaws.com",
+    "shotrent-staging.s3.amazonaws.com"],
   },
 })
 

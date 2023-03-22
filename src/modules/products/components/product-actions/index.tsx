@@ -141,6 +141,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </Popover>
         
         </div>
+        
         <div className="my-2"> <FontAwesomeIcon icon={faBagShopping} className="mr-2 w-8" /> Option to 
         <Popover
           isOpen={purchaseOptionPopover}
@@ -148,10 +149,11 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           onClickOutside={closePurchaseOptionPopover}
           content={
           <div className="popover-content">
-            <p className="text-sm mb-2">
+            {product.metadata.is_buyout_enabled?(<p className="text-sm mb-2">
               With this rental tenure, 
               to buy this out, keep renting for <span className="font-bold">{buyOutPeriod[rentalPeriod]} months</span> until its paid off. Or, pay for the remaining months anytime and buy it immediately. 
-            </p>
+            </p>):(<p className="text-sm mb-2">Kindly be informed that this particular product is <span className="font-bold">not available for purchase</span>, and can only be rented.</p>)}
+            
           </div>}
         >
           <span className="underline ml-1 cursor-pointer" onClick={purchaseOptionPopoverToggle}>keep it forever</span>
@@ -187,7 +189,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       </div> 
 
       
-        <div className="mt-8">
+        {product.metadata.is_buyout_enabled?(<div className="mt-8">
               <div className="text-sm font-bold" onClick={e=>setToggleBuyOut(state=>!state)}>
                 <div className="flex justify-between cursor-pointer">
                   <div>Can I also buy the product I'm renting? </div>
@@ -196,7 +198,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
               </div>
               {toggleBuyOut && (<div className="">
                 <div className="text-sm text-gray-600 mt-2">To buy this out, keep renting for <span className="font-bold">{tenure} months</span> until its paid off and it will be yours forever.</div>
-                <div className="text-sm text-gray-600 mt-2">Below is the breakout of how much you will pay over the actual price.</div>
+                <div className="text-sm text-gray-600 mt-2">Below is the breakdown of how much you will pay over the actual price.</div>
 
                 <div className="bg-slate-100 p-5 text-sm text-gray-600 mt-2">
                   <div className="flex justify-between py-1">
@@ -214,11 +216,21 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                   </div>
                 </div>
               </div>)}
-        </div>
+        </div>):(<div className="mt-8">
+              <div className="text-sm font-bold" onClick={e=>setToggleBuyOut(state=>!state)}>
+                <div className="flex justify-between cursor-pointer">
+                  <div>Can I also buy the product I'm renting? </div>
+                  <div className="align-right"><FontAwesomeIcon icon={buyOutIcon} className="" scale={2} /></div>
+                </div>
+              </div>
+              {toggleBuyOut && (<div className="">
+                <div className="text-sm text-gray-600 mt-2">Kindly be informed that this particular product is <span className="font-bold">not available for purchase</span>, and can only be rented.</div>
+              </div>)}
+        </div>)}
 
     
 
-      <Button className="mt-4" onClick={()=>inCart?goToCart():addToCart()}>
+      <Button className='mt-4' onClick={()=>inCart?goToCart():addToCart()}>
         {inCart ? "Go to cart" : "Add to cart"}
       </Button>
 

@@ -84,7 +84,6 @@ const ProductDetails = () => {
                   {...register("inventory_quantity", {
                     required: "Inventory qunatity is required",
                   })}
-                  defaultValue={1}
                   autoComplete="iq"
                   errors={errors}
                   touched={touchedFields}

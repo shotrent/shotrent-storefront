@@ -69,8 +69,8 @@ const MainMenu = () => {
                       className="flex items-center justify-between w-full"
                       onClick={close}
                     >
-                      <span className="sr-only">Create listing</span>
-                      <span>Create listing</span>
+                      <span className="sr-only">Create a listing</span>
+                      <span>Create a listing</span>
                       <FontAwesomeIcon icon={faPlus} />
                     </button>
                   </a>

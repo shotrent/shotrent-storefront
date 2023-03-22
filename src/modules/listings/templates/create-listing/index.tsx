@@ -12,7 +12,12 @@ import { CreateListing } from "@lib/models/listing"
 
 const CreateListingTemplate = () => {
   const router = useRouter();
-  const methods = useForm<Listing>();
+  const methods = useForm<Listing>({
+    defaultValues:{
+      purchase_price:30000,
+      inventory_quantity:1
+    }
+  });
   const {data, error, isLoading, sendRequest} = useMedusaClient<Listing>({
     onfulfilled:() => router.push("/account/listings")
   })

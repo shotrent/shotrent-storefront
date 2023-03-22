@@ -7,22 +7,22 @@ const useDurationTypes = () => [
       type: DurationType.MONTHLY,
       pricingOptions: [
         {
-          interestRates: [.24, .20, .18, .16],
-          commission: [.24, .20, .18, .15],
+          interestRates: [.14, .14, .14, .14],
+          commission: [.2, .2, .2, .2],
           depreciation: .2,
           tax:.18,
           buyOutPeriod: [9, 16, 21, 26,]
         },
         {
-          interestRates: [.27, .20, .19, .18],
-          commission: [.24, .20, .18, .15],
+          interestRates: [.18, .18, .18, .18],
+          commission: [.2, .2, .2, .2],
           depreciation: .2,
           tax:.18,
           buyOutPeriod: [9, 16, 21, 26,]
         },
         {
-          interestRates: [.3, .24, .22, .2],
-          commission: [.24, .20, .18, .15],
+          interestRates: [.24, .24, .24, .24],
+          commission: [.2, .2, .2, .2],
           depreciation: .2,
           tax:.18,
           buyOutPeriod: [9, 16, 21, 26,]

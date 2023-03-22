@@ -82,7 +82,7 @@ const Nav = () => {
               {process.env.FEATURE_SEARCH_ENABLED && <DesktopSearchModal />}
               <div>
                 <Link href="/account/listings/create" passHref>
-                  <Button>Create Listing</Button>
+                  <Button>Create a Listing</Button>
                 </Link>
               </div>
               <Link href="/account">

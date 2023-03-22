@@ -16,7 +16,7 @@ const ListingTemplate = () => {
 
         <div>
           <Link href="/account/listings/create" passHref>
-            <Button>Create Listing</Button>
+            <Button>Create a Listing</Button>
           </Link>
         </div>
       </div>
