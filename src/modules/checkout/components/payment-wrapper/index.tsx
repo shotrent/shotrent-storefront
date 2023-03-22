@@ -1,6 +1,6 @@
 import { PaymentSession } from "@medusajs/medusa"
 import { Elements } from "@stripe/react-stripe-js"
-import { loadStripe, StripeElementsOptions } from "@stripe/stripe-js"
+import { loadStripe } from "@stripe/stripe-js"
 import React from "react"
 
 type WrapperProps = {
@@ -31,7 +31,7 @@ const StripeWrapper: React.FC<WrapperProps> = ({
   paymentSession,
   children,
 }) => {
-  const options: StripeElementsOptions = {
+  const options = {
     clientSecret: paymentSession!.data.client_secret as string | undefined,
   }
 
