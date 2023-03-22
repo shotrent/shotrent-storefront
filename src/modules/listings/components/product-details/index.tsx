@@ -1,12 +1,10 @@
 import useDurationTypes from "@lib/hooks/use-duration-types"
-import { CreateListing, DurationType, Listing, ListingPirceBreakout, ListingVariant } from "@lib/models/listing"
+import { CreateListing, DurationType, Listing, ListingPirceBreakout, ListingVariant, Plan } from "@lib/models/listing"
 import ConnectForm from "@modules/common/components/connect-form"
 import Input from "@modules/common/components/input"
 import { useEffect, useMemo, useState } from "react"
 import { useFormContext } from "react-hook-form"
-import Plan from "../plan"
-
-
+import PlanTemplate from "../plan"
 const ProductDetails = () => {
  
   const [monthly] = useDurationTypes();
@@ -99,7 +97,7 @@ const ProductDetails = () => {
                 />
                 <p className="text-sm text-gray-600 font-normal">Kindly provide us with the cost you incurred for the product, and we will propose a pricing structure for varying monthly rental durations in the below plans.</p>
 
-                {planSuggestions.map((p, index) => <Plan key={index} plan={p} selected={plan} selectPlan={selectPlan} isRecommended={index==0} />)}
+                {planSuggestions.map((p, index) => <PlanTemplate key={index} plan={p} selected={plan} selectPlan={selectPlan} isRecommended={index==0} />)}
                 <p className="text-sm text-gray-600 font-normal mb-4">Please choose one from the above plans, where each plan displays various monthly rental rates and corresponding earning prices.</p>
 
               </div>

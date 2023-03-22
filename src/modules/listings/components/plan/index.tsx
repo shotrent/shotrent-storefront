@@ -8,7 +8,7 @@ import PlanBreakout from "../plan-breakout";
 
 type PlanProps = {plan:Plan,selected:Plan,selectPlan:(arg:Plan)=>void,isRecommended:boolean}
 
-const Plan = (props:PlanProps) => {
+const PlanTemplate = (props:PlanProps) => {
     const [isOpen, togglePlan] = useState(false);
     const variantName = (variant:ListingVariant) => `${variant.name}+ ${props.plan.type==DurationType.MONTHLY?'Months':props.plan.type}`;
     return (<div className="text-sm text-gray-600">
@@ -41,4 +41,4 @@ const Plan = (props:PlanProps) => {
     </div>)
   }
 
-  export default Plan;
+  export default PlanTemplate;
