@@ -93,6 +93,13 @@ const FooterNav = () => {
                  Cancellation & Return
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy-policy-for-owners"
+                >
+                  Protection for owners
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

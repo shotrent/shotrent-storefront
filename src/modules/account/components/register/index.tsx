@@ -93,11 +93,11 @@ const Register = () => {
         )}
         <span className="text-center text-gray-700 text-small-regular mt-6">
           By creating an account, you agree to Shotrent&apos;s{" "}
-          <Link href="/content/privacy-policy">
+          <Link href="/privacy-policy">
             <a className="underline">Privacy Policy</a>
           </Link>{" "}
           and{" "}
-          <Link href="/content/terms-of-use">
+          <Link href="/terms-of-service">
             <a className="underline">Terms of Use</a>
           </Link>
           .
