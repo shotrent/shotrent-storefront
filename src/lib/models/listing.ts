@@ -18,6 +18,13 @@ export class CreateListing {
     duration_type: DurationType = DurationType.MONTHLY;
 }
 
+export class Location {
+    lng:number = 0;
+    lat: number = 0;
+}
+
+
+
 export class Listing {
     id: string = '';
     title: string = '';
@@ -28,6 +35,14 @@ export class Listing {
     duration_type: DurationType = DurationType.MONTHLY;
     created_at:string = '';
     status:ListingStatus = ListingStatus.INREVIEW;
+    location: Location = {lat: 0, lng:0};
+    address_1: string | null = null;
+    address_2: string | null = null;
+    city: string | null = null;
+    country_code: string | null = null;
+    province: string | null = null;
+    postal_code: string | null = null;
+    phone: string | null = null;
 }
 
 export class ListingVariant {

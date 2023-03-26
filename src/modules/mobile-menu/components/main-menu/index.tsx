@@ -62,7 +62,7 @@ const MainMenu = () => {
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col gap-y-2">
-            <li className="bg-black text-white p-4 mb-2">
+            <li className="bg-black text-white p-4">
                 <Link href="/account/listings/create">
                   <a>
                     <button
@@ -70,7 +70,7 @@ const MainMenu = () => {
                       onClick={close}
                     >
                       <span className="sr-only">Create a listing</span>
-                      <span>Create a listing</span>
+                      <span>Create a Listing</span>
                       <FontAwesomeIcon icon={faPlus} />
                     </button>
                   </a>
@@ -78,6 +78,37 @@ const MainMenu = () => {
               </li>
 
             <li className="bg-gray-50 p-4">
+              <Link href="/account/listings">
+                <a>
+                  <button
+                    className="flex items-center justify-between w-full"
+                    onClick={close}
+                  >
+                    <span className="sr-only">Go to my listings</span>
+                    <span>My Listings</span>
+                    <ChevronDown className="-rotate-90" />
+                  </button>
+                </a>
+              </Link>
+            </li>
+            <li className="bg-gray-50 p-4 mb-4">
+              <Link href="/account">
+                <a>
+                  <button
+                    className="flex items-center justify-between w-full"
+                    onClick={close}
+                  >
+                    <span className="sr-only">Go to my account</span>
+                    <span>My Account</span>
+                    <ChevronDown className="-rotate-90" />
+                  </button>
+                </a>
+              </Link>
+            </li>
+
+            <hr className="mb-2" />
+
+            <li className="p-4 bg-black text-white">
               <Link href="/store">
                 <a>
                   <button
@@ -91,6 +122,7 @@ const MainMenu = () => {
                 </a>
               </Link>
             </li>
+
             {collections ? (
               <>
                 {collections.map((collection) => (
