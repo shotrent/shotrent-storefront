@@ -53,34 +53,59 @@ export default ({ register, name, sendAddress }: LocationPickerProps) => {
         setZoom(newZoom);
     }
 
+    const [showMap, setShowMap] = useState(false);
+
+    //open map with some timeout to handle package issue
+    const openMapTimeout = () => setTimeout(()=> setShowMap(true),1000);
+
+    //sets current postition based on location service and open map with timeout
+    const setCurrentPosition = () => {
+        navigator.geolocation.getCurrentPosition((position)=>{
+            changeLocation(position.coords.latitude, position.coords.longitude);
+            getAddress(position.coords.latitude, position.coords.longitude, true);
+            openMapTimeout();
+            
+        }, err=> {
+            if(err.code == 1){
+                setIsLocationEnabled(false);
+                changeLocation(defaultLocation.lat, defaultLocation.lng); 
+                getAddress(defaultLocation.lat, defaultLocation.lng, true); 
+                openMapTimeout();
+            }
+        })
+    }
+
+    // change location if default values are already set else set current location if permission is already granted else do nothing
     useEffect(()=>{
         const defaultValue = methods.getValues();
-        console.log(defaultValue)
         if(defaultValue.location && defaultValue.location.lat && defaultValue.location.lng) {
             changeLocation(defaultValue.location.lat, defaultValue.location.lng);
             getAddress(defaultValue.location.lat, defaultValue.location.lng, false); 
-        }
+        }        
         else {
-            navigator.geolocation.getCurrentPosition((position)=>{
-                changeLocation(position.coords.latitude, position.coords.longitude);
-                getAddress(position.coords.latitude, position.coords.longitude, true);
-                
-            }, err=> {
-                if(err.code == 1){
-                    setIsLocationEnabled(false);
-                    changeLocation(defaultLocation.lat, defaultLocation.lng); 
-                    getAddress(defaultLocation.lat, defaultLocation.lng, true); 
+            navigator.permissions.query({ name: "geolocation" }).then((result) => {
+                if (result.state === "granted") {
+                    setCurrentPosition();
                 }
-            })
+                else {
+                    /* do nothing */
+                }
+            });
         }
-       
     }, [])
 
-    const [showMap, setShowMap] = useState(false);
+   
 
+    //set current position using location service if default values is not set and open map with timeout
     const openMap = () => {
-        open();
-        setTimeout(()=> setShowMap(true),500);
+        open();       
+        const defaultValue = methods.getValues();
+        if(!defaultValue.location || !defaultValue.location.lat || !defaultValue.location.lng) {
+            setCurrentPosition();
+        }
+        else {
+            openMapTimeout();
+        }
     }
 
     
@@ -97,10 +122,10 @@ export default ({ register, name, sendAddress }: LocationPickerProps) => {
 
     return (<>
         <div className="flex border border-black justify-between cursor-pointer md:text-base text-xs" onClick={e=> openMap()}>
-            <div className="p-2"><FontAwesomeIcon icon={faLocationCrosshairs} className='mr-2'/> {address?.address_line1}, {address?.city}</div>
+            <div className="p-2"><FontAwesomeIcon icon={faLocationCrosshairs} className='mr-2'/> {address?(<span>{address?.address_line2}, {address?.city}</span>):(<span className="">Please set your pickup location</span>)}</div>
             <div className="p-2 bg-black border-black border-r text-white">Change Location</div>
         </div>
-        {isLocationEnabled?"":(<p className="text-red-800 text-base">Please enable location services for accurate pickup location.</p>)}
+        {isLocationEnabled?"":(<p className="text-red-800 text-xs md:text-base mb-2">Please enable location services for accurate pickup location.</p>)}
 
         <Modal isOpen={state} close={close} size='large'>
             <Modal.Title>Set your pickup address</Modal.Title>

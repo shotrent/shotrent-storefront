@@ -51,7 +51,7 @@ const ProductDetails = () => {
 
 
   const sendAddress = (data:AddressDetails) => {
-    methods.setValue('address_1',data.address_line1);
+    methods.setValue('address_2',data.address_line2);
     methods.setValue('city',data.city);
     methods.setValue('province',data.province);
     methods.setValue('country_code',data.country_code);
