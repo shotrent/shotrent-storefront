@@ -20,12 +20,18 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const inputRef = React.useRef<HTMLTextAreaElement>(null)     
 
    
-    
+    const [isFocused, setIsFocused] = useState(false);
 
     useImperativeHandle(ref, () => inputRef.current!)
 
     const hasError = get(errors, name) && get(touched, name)
 
+    useEffect(()=>{
+      if(inputRef.current?.value) {
+        setIsFocused(true);
+      }      
+    }, [inputRef.current])
+    
     return (
       <div>
         <div className="relative z-0 w-full text-base-regular">
@@ -40,14 +46,28 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
             )}
             {...props}
             ref={inputRef}
+            onClick={()=>{
+              inputRef.current?.focus();
+              setIsFocused(true)
+            }}
+            onBlur= {()=> {
+              if(!inputRef.current?.value) {
+                setIsFocused(false)
+              }              
+            }}
           />
           <label
             htmlFor={name}
-            onClick={() => inputRef.current?.focus()}
+            onClick={() => {
+              inputRef.current?.focus();
+              setIsFocused(true)
+            }}
             className={clsx(
-              "mx-3 px-1 transition-all absolute duration-300 top-3 -z-1 origin-0 text-gray-500",
+              "mx-3 px-1 transition-all absolute duration-300 -z-1 origin-0 text-gray-500",
               {
                 "!text-rose-500": hasError,
+                "top-1 text-xs": isFocused,
+                "top-3 ":!isFocused
               }
             )}
           >

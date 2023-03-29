@@ -43,6 +43,7 @@ export class Listing {
     province: string | null = null;
     postal_code: string | null = null;
     phone: string | null = null;
+    description: string | null = '';
 }
 
 export class ListingVariant {

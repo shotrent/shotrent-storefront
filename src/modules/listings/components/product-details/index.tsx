@@ -2,6 +2,7 @@ import useDurationTypes from "@lib/hooks/use-duration-types"
 import { Listing, ListingPirceBreakout, ListingVariant, Plan } from "@lib/models/listing"
 import ConnectForm from "@modules/common/components/connect-form"
 import Input from "@modules/common/components/input"
+import Textarea from "@modules/common/components/textarea"
 import { useEffect, useMemo, useState } from "react"
 import { useFormContext } from "react-hook-form"
 import LocationPicker, { AddressDetails } from "../location-picker"
@@ -76,19 +77,14 @@ const ProductDetails = () => {
               type='text'
             />
 
-            <Input
-              label="Product link"
-              {...register("product_link", {
-                required: "Amazon link is required",
-              })}
-              autoComplete="sn"
+            <Textarea 
+              label="Description"
+              {...register("description")}
+              autoComplete="description"
               errors={errors}
-              touched={touchedFields}
-              type='text'
-            />
-            <p className="text-sm text-gray-600 font-normal mb-4">
-              Kindly provide us with the product link. This can be the link of marketplaces like Amazon and Flipkart.
-              For example, https://www.amazon.in/ASUS-Vivobook-i7-1165G7-Intel-Iris-Xe-Graphics-X415EA-EK701WS/dp/B0BLP1N74T.</p>
+              touched={touchedFields}              
+            />           
+           
 
             <Input
               label="Inventory qunatity"
