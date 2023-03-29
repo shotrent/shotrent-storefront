@@ -31,8 +31,14 @@ const Login = () => {
     medusaClient.auth
       .authenticate(credentials)
       .then(() => {
-        refetchCustomer()
-        router.push("/account")
+        refetchCustomer();
+        if(router.query.redirect_url) {
+          router.push(router.query.redirect_url as any)
+        }
+        else {
+          router.push("/account")
+        }
+        
       })
       .catch(handleError)
   })

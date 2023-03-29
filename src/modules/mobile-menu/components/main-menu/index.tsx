@@ -1,5 +1,6 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus, faSignOut } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useAccount } from "@lib/context/account-context"
 import { useMobileMenu } from "@lib/context/mobile-menu-context"
 import { useStore } from "@lib/context/store-context"
 import useCountryOptions from "@lib/hooks/use-country-options"
@@ -14,7 +15,7 @@ const MainMenu = () => {
   const { collections } = useCollections()
   const { customer } = useMeCustomer()
   const { countryCode } = useStore()
-
+  const { logout } = useAccount();
   const countries = useCountryOptions()
 
   const {
@@ -181,27 +182,25 @@ const MainMenu = () => {
                     </button>
                   </a>
                 </Link>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-4">
-              <span className="text-gray-700 uppercase">Delivery</span>
-              <button
-                className="flex items-center justify-between border-b border-gray-200 py-2"
-                onClick={setScreenCountry}
+                <button
+                className="flex items-center justify-between border-b border-gray-200 py-2 w-full"
+                onClick={()=> { 
+                  logout();
+                  close();
+                }}
               >
-                <span className="sr-only">
-                  Click to select shipping country
-                </span>
+                
                 <div className="flex items-center gap-x-2">
-                  <ReactCountryFlag countryCode={countryCode || "us"} svg />
+                 
                   <span className="normal-case">
-                    Shipping to{" "}
-                    {countries?.find((c) => c.country === countryCode)?.label}
+                    Logout
                   </span>
                 </div>
-                <ChevronDown className="-rotate-90" />
+                <FontAwesomeIcon icon={faSignOut} />
               </button>
-            </div>
+              </div>
+            )}
+           
           </div>
         </div>
       </div>

@@ -1,17 +1,24 @@
+import { faSignOut } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { medusaClient } from "@lib/config"
+import { AccountProvider, useAccount } from "@lib/context/account-context"
 import { Customer, Order } from "@medusajs/medusa"
 import ChevronDown from "@modules/common/icons/chevron-down"
 import MapPin from "@modules/common/icons/map-pin"
 import Package from "@modules/common/icons/package"
 import User from "@modules/common/icons/user"
-import { formatAmount } from "medusa-react"
+import { formatAmount, useMeCustomer } from "medusa-react"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { useContext } from "react"
 
 type OverviewProps = {
   orders?: Order[]
   customer?: Omit<Customer, "password_hash">
 }
 
-const Overview = ({ orders, customer }: OverviewProps) => {
+const Overview = ({ orders, customer }: OverviewProps) => {  
+  const { logout } = useAccount();
   return (
     <div>
       <div className="small:hidden">
@@ -63,6 +70,17 @@ const Overview = ({ orders, customer }: OverviewProps) => {
                   <ChevronDown className="transform -rotate-90" />
                 </a>
               </Link>
+            </li>
+            <li>
+              
+                <a className="flex items-center justify-between py-4 border-b border-gray-200 px-8" onClick={logout}>
+                  <div className="flex items-center gap-x-2">
+                    <FontAwesomeIcon icon={faSignOut} />
+                    <span>Logout</span>
+                  </div>
+                  <ChevronDown className="transform -rotate-90" />
+                </a>
+              
             </li>
           </ul>
         </div>

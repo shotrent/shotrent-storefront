@@ -28,7 +28,7 @@ const queryClient = new QueryClient({
   },
 })
 
-const medusaClient = new Medusa({ baseUrl: MEDUSA_BACKEND_URL, maxRetries: 3 })
+const medusaClient = new Medusa({ baseUrl: MEDUSA_BACKEND_URL, maxRetries: 3 });
 const customClient = axios.create({
   baseURL: MEDUSA_BACKEND_URL,
 })

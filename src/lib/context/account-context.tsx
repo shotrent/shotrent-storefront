@@ -1,3 +1,4 @@
+import { medusaClient } from "@lib/config"
 import { Customer } from "@medusajs/medusa"
 import { useMeCustomer } from "medusa-react"
 import { useRouter } from "next/router"
@@ -13,7 +14,8 @@ interface AccountContext {
   retrievingCustomer: boolean
   loginView: [LOGIN_VIEW, React.Dispatch<React.SetStateAction<LOGIN_VIEW>>]
   checkSession: () => void
-  refetchCustomer: () => void
+  refetchCustomer: () => void,
+  logout: () => void
 }
 
 const AccountContext = createContext<AccountContext | null>(null)
@@ -27,16 +29,27 @@ export const AccountProvider = ({ children }: AccountProviderProps) => {
     customer,
     isLoading: retrievingCustomer,
     refetch,
+    remove
   } = useMeCustomer({ onError: () => {} })
   const loginView = useState<LOGIN_VIEW>(LOGIN_VIEW.SIGN_IN)
 
-  const router = useRouter()
+  const router = useRouter();
 
   const checkSession = useCallback(() => {
+    
+    const redirect_url = router.asPath;
+    const params = new URLSearchParams({ redirect_url});
     if (!customer && !retrievingCustomer) {
-      router.push("/account/login")
+      router.push(`/account/login?${params.toString()}`)
     }
   }, [customer, retrievingCustomer, router])
+
+  const logout = () => {
+    medusaClient.auth.deleteSession().then(()=>{
+      remove();
+      router.push('/');
+    })    
+  }
 
   return (
     <AccountContext.Provider
@@ -46,6 +59,7 @@ export const AccountProvider = ({ children }: AccountProviderProps) => {
         loginView,
         checkSession,
         refetchCustomer: refetch,
+        logout
       }}
     >
       {children}
