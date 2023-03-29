@@ -31,7 +31,7 @@ export const AccountProvider = ({ children }: AccountProviderProps) => {
     refetch,
     remove
   } = useMeCustomer({ onError: () => {} })
-  const loginView = useState<LOGIN_VIEW>(LOGIN_VIEW.SIGN_IN)
+  const loginView = useState<LOGIN_VIEW>(LOGIN_VIEW.REGISTER)
 
   const router = useRouter();
 

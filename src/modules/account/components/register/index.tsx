@@ -36,17 +36,21 @@ const Register = () => {
       .create(credentials)
       .then(() => {
         refetchCustomer()
-        router.push("/account")
+        if(router.query.redirect_url) {
+          router.push(router.query.redirect_url as any)
+        }
+        else {
+          router.push("/account")
+        }
       })
       .catch(handleError)
   })
 
   return (
     <div className="max-w-sm flex flex-col items-center mx-4">
-      <h1 className="text-large-semi uppercase mb-6">Become a Shotrent Member</h1>
+      <h1 className="text-large-semi uppercase mb-6">Become a Shotrent Member</h1>      
       <p className="text-center text-base-regular text-gray-700 mb-4">
-        Create your Shotrent Member profile, and get access to an enhanced shopping
-        experience.
+        Whether you're looking to rent a product or list your own, our platform makes it easy to connect with renters and owners alike. Let's get started!
       </p>
       <form className="w-full flex flex-col" onSubmit={onSubmit}>
         <div className="flex flex-col w-full gap-y-2">
