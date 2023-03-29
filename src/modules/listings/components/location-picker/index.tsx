@@ -11,7 +11,7 @@ import { medusaClient } from "@lib/config"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faLocationCrosshairs } from "@fortawesome/free-solid-svg-icons"
 const DefaultLocation = { lat: 19.218330, lng: 72.978088 };
-const DefaultZoom = 20;
+const DefaultZoom = 17;
 
 export type AddressDetails = {
     address_line1: string | null;
