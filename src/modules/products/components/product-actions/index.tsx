@@ -21,7 +21,7 @@ type ProductActionsProps = {
 
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
-  const { addToCart, inStock, updateRentalPeriod, rentalPeriod, selectedVariant, inCart, goToCart } =
+  const { addToCart, inStock, updateRentalPeriod, rentalPeriod, selectedVariant, inCart, goToCart, isRentedOut } =
     useProductActions();
 
   const {variantPrice} = useProductPrice({ id: product.id, variantId: selectedVariant.id })
@@ -68,7 +68,6 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   const [toggleBuyOut, setToggleBuyOut] = useState(true);
   const buyOutIcon = faInfoCircle;
-  
 
   return (
     <div className="flex flex-col gap-y-2">
@@ -230,7 +229,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
     
 
-      <Button className='mt-4' onClick={()=>inCart?goToCart():addToCart()}>
+      <Button className='mt-4' onClick={()=>inCart?goToCart():addToCart()} disabled={!inCart && isRentedOut}>
         {inCart ? "Go to cart" : "Add to cart"}
       </Button>
 

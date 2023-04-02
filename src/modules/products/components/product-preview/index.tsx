@@ -8,12 +8,13 @@ const ProductPreview = ({
   handle,
   thumbnail,
   price,
+  isRentedOut
 }: ProductPreviewType) => {
   return (
     <Link href={`/products/${handle}`}>
       <a>
         <div>
-          <Thumbnail thumbnail={thumbnail} size="full" />
+          <Thumbnail thumbnail={thumbnail} size="full" isRentedOut={isRentedOut} />
           <div className="text-base-regular mt-2">
             <span>{title}</span>
             <div className="flex items-center gap-x-1 mt-2">

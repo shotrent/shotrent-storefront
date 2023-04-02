@@ -24,7 +24,7 @@ const Items = ({ items, region, cartId }: ItemsProps) => {
               <div key={item.id}>
                 <div className="grid grid-cols-[80px_1fr] gap-x-4" key={item.id}>
                 <div className="w-[80px]">
-                  <Thumbnail thumbnail={item.thumbnail} size="full" />
+                  <Thumbnail thumbnail={item.thumbnail} size="full" isRentedOut={false} />
                 </div>
                 <div className="flex flex-col justify-between flex-1">
                   <div className="flex flex-col flex-1 text-small-regular">

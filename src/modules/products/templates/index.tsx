@@ -19,12 +19,13 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
   const info = useRef<HTMLDivElement>(null)
 
   const inView = useIntersection(info, "0px")
+  const isRentedOut = product.variants.every(v=>!v.allow_backorder);
 
   return (
     <ProductProvider product={product}>
       <div className="content-container flex flex-col small:flex-row small:items-start py-6 relative">
         <div className="flex flex-col gap-y-8 w-full">
-          <ImageGallery images={product.images} />
+          <ImageGallery images={product.images} isRentedOut={isRentedOut} />
           <FeatureSection className="hidden lg:block" />
           <ProductDescription className="hidden lg:block" product={product} />
           <FaqSection className="hidden lg:block" />          

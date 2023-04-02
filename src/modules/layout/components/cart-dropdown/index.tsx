@@ -55,7 +55,7 @@ const CartDropdown = () => {
                         key={item.id}
                       >
                         <div className="w-[122px]">
-                          <Thumbnail thumbnail={item.thumbnail} size="full" />
+                          <Thumbnail thumbnail={item.thumbnail} size="full" isRentedOut={false} />
                         </div>
                         <div className="flex flex-col justify-between flex-1">
                           <div className="flex flex-col flex-1">

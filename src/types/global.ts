@@ -58,7 +58,8 @@ export type ProductPreviewType = {
     original_price: string
     difference: string
     price_type: "default" | "sale"
-  }
+  },
+  isRentedOut:boolean
 }
 
 export type InfiniteProductPage = {

@@ -75,6 +75,7 @@ const fetchFeaturedProducts = async (
       title: p.title,
       handle: p.handle,
       thumbnail: p.thumbnail,
+      isRentedOut: p.variants.every(v=>!v.allow_backorder),
       price: {
         calculated_price: formatAmount({
           amount: cheapestVariant.calculated_price,

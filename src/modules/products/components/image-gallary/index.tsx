@@ -1,12 +1,22 @@
 import { Image as MedusaImage } from "@medusajs/medusa"
 import Image from "next/image"
-import { useRef } from "react"
+import { CSSProperties, useMemo, useRef } from "react"
 
 type ImageGalleryProps = {
-  images: MedusaImage[]
+  images: MedusaImage[],
+  isRentedOut: boolean
 }
 
-const ImageGallery = ({ images }: ImageGalleryProps) => {
+const ImageGallery = ({ images, isRentedOut }: ImageGalleryProps) => {
+  const style:CSSProperties = useMemo(() => {
+    if(isRentedOut) {
+      return ({
+        filter: 'grayscale(100%)',
+        opacity: '.3'
+      })
+    }
+    return {};
+  }, [isRentedOut]);
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
 
   const handleScrollTo = (id: string) => {
@@ -40,6 +50,7 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 className="absolute inset-0"
                 alt="Thumbnail"
               />
+              
             </button>
           )
         })}
@@ -60,7 +71,9 @@ const ImageGallery = ({ images }: ImageGalleryProps) => {
                 priority={index <= 2 ? true : false}
                 className="absolute inset-0"
                 alt={`Product image ${index + 1}`}
+                style={style}
               />
+              {isRentedOut?(<div className="p-2 text-xs md:p-5 md:text-xl font-bold text-center text-gray-600 bg-gray-200 opacity-75 absolute top-[50%] left-[50%] translate-x-[-50%]  translate-y-[-50%] w-full">All rented out</div>):""}
             </div>
           )
         })}

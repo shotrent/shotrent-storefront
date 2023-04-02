@@ -16,7 +16,7 @@ type MobileActionsProps = {
 }
 
 const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
-  const { variant, addToCart, options, inStock, updateOptions,updateRentalPeriod, selectedVariant, inCart, goToCart } = useProductActions()
+  const { variant, addToCart, options, inStock, updateOptions,updateRentalPeriod, selectedVariant, inCart, goToCart, isRentedOut } = useProductActions()
   const { state, open, close } = useToggleState()
 
   const price = useProductPrice({ id: product.id, variantId: selectedVariant?.id })
@@ -85,7 +85,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                   <ChevronDown />
                 </div>
               </Button>              
-              <Button onClick={()=>inCart?goToCart():addToCart()}>{inCart ? "Go to cart" : "Add to cart"}</Button>
+              <Button onClick={()=>inCart?goToCart():addToCart()} disabled={!inCart && isRentedOut}>{inCart ? "Go to cart" : "Add to cart"}</Button>
             </div>
           </div>
         </Transition>

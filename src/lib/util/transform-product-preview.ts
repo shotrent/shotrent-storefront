@@ -41,6 +41,7 @@ const transformProductPreview = (
       ).slice(0, -3),
       price_type: cheapestVariant.calculated_price_type,
     },
+    isRentedOut: variants.every(v=>!v.allow_backorder)
   }
 }
 

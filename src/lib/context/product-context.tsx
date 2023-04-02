@@ -32,7 +32,8 @@ interface ProductContext {
   updateRentalPeriod: (value:number) => void;
   selectedVariant:Variant,
   inCart: boolean,
-  goToCart: ()=> void
+  goToCart: ()=> void,
+  isRentedOut: boolean
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -201,6 +202,8 @@ export const ProductProvider = ({
     router.push('/cart')
   }
 
+  const isRentedOut = variants.every(v=>!v.allow_backorder);
+
   return (
     <ProductActionContext.Provider
       value={{
@@ -219,7 +222,8 @@ export const ProductProvider = ({
         updateRentalPeriod,
         selectedVariant,
         inCart,
-        goToCart
+        goToCart,
+        isRentedOut
       }}
     >
       {children}
